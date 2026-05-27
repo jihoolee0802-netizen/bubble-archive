@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -21,18 +22,23 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
+html,
 body{
+width:100%;
+min-height:100%;
 font-family:'Pretendard',sans-serif;
 background:#ECECEC;
-height:100vh;
-overflow:hidden;
+overflow-x:hidden;
 }
 
-body::before{
-content:'';
+body{
+position:relative;
+padding:0;
+}
+
+.background{
 position:fixed;
 inset:0;
-background-image:url('YOUR_BACKGROUND_IMAGE');
 background-size:cover;
 background-position:center;
 opacity:0.16;
@@ -41,82 +47,90 @@ z-index:-1;
 
 .app{
 width:100%;
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
-padding:20px;
+padding:0;
 }
 
 .chat-wrap{
 width:100%;
-max-width:860px;
-height:100%;
+max-width:920px;
+min-height:100vh;
 background:#ECECEC;
-border-radius:36px;
-overflow:hidden;
 display:flex;
 flex-direction:column;
 position:relative;
-box-shadow:0 10px 40px rgba(0,0,0,0.08);
 }
 
 /* 상단 */
 
 .top-bar{
+position:sticky;
+top:0;
+z-index:100;
 background:white;
-padding:22px 24px 18px;
-border-bottom:1px solid #F0F0F0;
-z-index:10;
+padding:20px 20px 16px;
+border-bottom:1px solid #EFEFEF;
 }
 
 .top-row{
+position:relative;
 display:flex;
 align-items:center;
-justify-content:space-between;
+justify-content:center;
+height:34px;
 }
 
 .room-title{
-font-size:20px;
+font-size:21px;
 font-weight:800;
 letter-spacing:-0.03em;
+color:#111;
 }
 
-.top-icons{
+.left-icons{
+position:absolute;
+left:0;
 display:flex;
 align-items:center;
-gap:18px;
+gap:14px;
+}
+
+.right-icons{
+position:absolute;
+right:0;
+display:flex;
+align-items:center;
+gap:16px;
 }
 
 .icon-btn{
-font-size:27px;
+font-size:24px;
 cursor:pointer;
 user-select:none;
 }
 
 .status-text{
-margin-top:12px;
-font-size:15px;
+margin-top:10px;
+font-size:14px;
 font-weight:700;
 text-align:center;
-color:#222;
+color:#111;
 }
 
-.status-text span{
-color:#FF89A0;
-}
-
-.search-bar{
+.search-wrap{
 display:none;
 margin-top:12px;
 }
 
 .search-input{
 width:100%;
-height:44px;
+height:48px;
 border:none;
 outline:none;
-border-radius:14px;
 background:#F5F5F5;
+border-radius:16px;
 padding:0 16px;
 font-size:15px;
 font-family:'Pretendard',sans-serif;
@@ -126,24 +140,20 @@ font-family:'Pretendard',sans-serif;
 
 .chat-area{
 flex:1;
-overflow:auto;
-padding:26px 18px 180px;
-}
-
-.chat-area::-webkit-scrollbar{
-display:none;
+padding:24px 18px 260px;
+overflow:visible;
 }
 
 .message{
 display:flex;
 gap:12px;
-margin-bottom:28px;
 align-items:flex-start;
+margin-bottom:34px;
 }
 
 .profile{
-width:56px;
-height:56px;
+width:54px;
+height:54px;
 border-radius:50%;
 overflow:hidden;
 border:3px solid #FF8B38;
@@ -158,7 +168,7 @@ object-fit:cover;
 }
 
 .message-content{
-max-width:78%;
+max-width:82%;
 }
 
 .name-row{
@@ -171,15 +181,15 @@ margin-bottom:8px;
 .artist-tag{
 background:#FF8B38;
 color:white;
-font-size:12px;
+font-size:11px;
 font-weight:800;
-padding:4px 9px;
+padding:4px 8px;
 border-radius:8px;
 line-height:1;
 }
 
 .artist-name{
-font-size:16px;
+font-size:15px;
 font-weight:800;
 color:#111;
 }
@@ -190,16 +200,22 @@ align-items:flex-end;
 gap:8px;
 }
 
+.bubble-wrap{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
 .bubble{
 background:white;
 padding:18px 20px;
-border-radius:24px;
+border-radius:26px;
 font-size:18px;
-line-height:1.45;
+line-height:1.55;
 color:#111;
-position:relative;
 word-break:break-word;
-box-shadow:0 2px 10px rgba(0,0,0,0.04);
+box-shadow:0 3px 14px rgba(0,0,0,0.04);
+max-width:100%;
 }
 
 .image-bubble{
@@ -212,91 +228,93 @@ box-shadow:none;
 .image-bubble img{
 width:100%;
 max-width:520px;
-border-radius:28px;
 display:block;
+border-radius:28px;
+}
+
+.bottom-row{
+display:flex;
+align-items:center;
+gap:8px;
+padding-left:6px;
 }
 
 .time{
 font-size:13px;
-color:#9F9F9F;
 font-weight:600;
-padding-bottom:6px;
-white-space:nowrap;
+color:#8F8F8F;
 }
 
-/* 즐겨찾기 */
-
 .favorite-btn{
-position:absolute;
-top:12px;
-right:12px;
-width:34px;
-height:34px;
+width:28px;
+height:28px;
 border-radius:50%;
-background:rgba(255,255,255,0.96);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:18px;
+font-size:15px;
 cursor:pointer;
-backdrop-filter:blur(10px);
-transition:0.2s;
+background:#F3F3F3;
+transition:0.15s;
 }
 
 .favorite-btn.active{
 background:#BFE8FF;
+color:#2478A9;
 }
 
 /* 입력창 */
 
 .bottom-input{
-position:absolute;
-left:18px;
-right:18px;
+position:fixed;
+left:50%;
+transform:translateX(-50%);
 bottom:18px;
-height:86px;
+width:calc(100% - 24px);
+max-width:880px;
+height:76px;
 border-radius:999px;
 background:#F8F8F8;
 display:flex;
 align-items:center;
 padding:0 24px;
-box-shadow:0 6px 22px rgba(0,0,0,0.06);
+box-shadow:0 8px 26px rgba(0,0,0,0.08);
+z-index:200;
 cursor:pointer;
-z-index:20;
 }
 
 .fake-input{
 flex:1;
 font-size:17px;
 font-weight:600;
-color:#C2C2C2;
+color:#B7B7B7;
 }
 
 .bottom-icons{
 display:flex;
-gap:16px;
-font-size:32px;
+gap:14px;
+font-size:28px;
 }
 
 /* 메뉴 */
 
 .menu-panel{
 position:fixed;
-top:100px;
-right:28px;
-width:280px;
+top:90px;
+right:18px;
+width:240px;
 background:white;
 border-radius:24px;
-padding:16px;
+padding:14px;
 display:none;
 flex-direction:column;
 gap:10px;
-box-shadow:0 12px 40px rgba(0,0,0,0.12);
 z-index:999;
+box-shadow:0 14px 40px rgba(0,0,0,0.12);
 }
 
 .menu-btn{
-height:54px;
+height:52px;
 border:none;
 border-radius:16px;
 background:#F5F5F5;
@@ -326,8 +344,8 @@ z-index:1000;
 
 .modal{
 width:100%;
-max-width:540px;
-max-height:90vh;
+max-width:560px;
+max-height:88vh;
 overflow:auto;
 background:white;
 border-radius:32px;
@@ -339,7 +357,7 @@ display:none;
 }
 
 .modal-title{
-font-size:24px;
+font-size:25px;
 font-weight:800;
 margin-bottom:22px;
 }
@@ -362,10 +380,11 @@ width:100%;
 height:180px;
 border:none;
 outline:none;
-border-radius:20px;
+border-radius:22px;
 background:#F5F5F5;
 padding:18px;
 font-size:15px;
+line-height:1.6;
 font-family:'Pretendard',sans-serif;
 resize:none;
 margin-bottom:14px;
@@ -407,8 +426,8 @@ gap:12px;
 
 .gallery-item{
 position:relative;
-border-radius:20px;
 overflow:hidden;
+border-radius:22px;
 aspect-ratio:1/1;
 background:#EEE;
 }
@@ -424,66 +443,71 @@ position:absolute;
 bottom:10px;
 right:10px;
 border:none;
+background:rgba(255,255,255,0.96);
 border-radius:12px;
 padding:8px 10px;
 font-size:12px;
 font-weight:800;
-background:rgba(255,255,255,0.96);
 cursor:pointer;
 }
 
 /* 반응형 */
 
-@media (max-width:900px){
-
-.app{
-padding:0;
-}
-
-.chat-wrap{
-max-width:none;
-border-radius:0;
-height:100vh;
-}
+@media (max-width:768px){
 
 .chat-area{
-padding-bottom:220px;
+padding:20px 14px 240px;
 }
 
 .message-content{
-max-width:84%;
+max-width:86%;
+}
+
+.bubble{
+font-size:17px;
 }
 
 .image-bubble img{
 max-width:100%;
 }
 
-.menu-panel{
-right:12px;
-top:90px;
-width:240px;
+.bottom-input{
+height:72px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
+
+<div
+class="background"
+id="background"
+></div>
 
 <div class="app">
 
 <div class="chat-wrap">
 
+<!-- 상단 -->
+
 <div class="top-bar">
 
 <div class="top-row">
 
-<div class="room-title" id="roomTitle">
+<div class="left-icons"></div>
+
+<div
+class="room-title"
+id="roomTitle"
+>
 HAN YUJIN
 </div>
 
-<div class="top-icons">
+<div class="right-icons">
 
 <div
 class="icon-btn"
@@ -511,8 +535,8 @@ bubble 💗 + <span id="ddayText">1</span>
 </div>
 
 <div
-class="search-bar"
-id="searchBar"
+class="search-wrap"
+id="searchWrap"
 >
 
 <input
@@ -526,10 +550,18 @@ oninput="runSearch()"
 
 </div>
 
+<!-- 채팅 -->
+
 <div
 class="chat-area"
 id="chatArea"
 ></div>
+
+</div>
+
+</div>
+
+<!-- 입력창 -->
 
 <div
 class="bottom-input"
@@ -542,10 +574,6 @@ onclick="openMessageModal()"
 
 <div class="bottom-icons">
 ☺ ✈
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -580,7 +608,7 @@ onclick="openFavorites()"
 
 </div>
 
-<!-- 프로필 설정 -->
+<!-- 프로필 -->
 
 <div
 class="overlay"
@@ -669,7 +697,7 @@ placeholder="오후 3:20"
 <input
 class="input"
 id="messageImageInput"
-placeholder="이미지 링크 (선택)"
+placeholder="이미지 직접 링크 (https://i.ibb.co/...)"
 />
 
 <label style="
@@ -717,7 +745,10 @@ id="galleryOverlay"
 
 <div class="modal">
 
-<div class="modal-title">
+<div
+class="modal-title"
+id="galleryTitle"
+>
 사진 모아보기
 </div>
 
@@ -742,13 +773,15 @@ onclick="closeGallery()"
 /* Firebase */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDmrRitOd3F2xoZasaWq6mFbAblrKZFzPg",
-  authDomain: "bubble-archive.firebaseapp.com",
-  projectId: "bubble-archive",
-  storageBucket: "bubble-archive.firebasestorage.app",
-  messagingSenderId: "527543418806",
-  appId: "1:527543418806:web:125dd660b438c7d3224b17",
-  measurementId: "G-3QK856857H"
+
+apiKey: "AIzaSyDmrRitOd3F2xoZasaWq6mFbAblrKZFzPg",
+authDomain: "bubble-archive.firebaseapp.com",
+projectId: "bubble-archive",
+storageBucket: "bubble-archive.firebasestorage.app",
+messagingSenderId: "527543418806",
+appId: "1:527543418806:web:125dd660b438c7d3224b17",
+measurementId: "G-3QK856857H"
+
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -780,7 +813,7 @@ background:''
 const chatArea =
 document.getElementById('chatArea');
 
-/* 메시지 불러오기 */
+/* 메시지 */
 
 db.collection('bubbleArchives')
 .doc(archiveId)
@@ -800,7 +833,7 @@ renderMessages(messages);
 
 });
 
-/* 프로필 불러오기 */
+/* 프로필 */
 
 db.collection('bubbleProfiles')
 .doc(archiveId)
@@ -816,8 +849,6 @@ applyProfile();
 
 });
 
-/* 프로필 적용 */
-
 function applyProfile(){
 
 document.getElementById('roomTitle').innerText =
@@ -828,14 +859,14 @@ profileData.dday || '1';
 
 if(profileData.background){
 
-document.body.style.backgroundImage =
+document.getElementById('background').style.backgroundImage =
 `url(${profileData.background})`;
 
 }
 
 }
 
-/* 메시지 렌더 */
+/* 렌더 */
 
 function renderMessages(list){
 
@@ -843,12 +874,12 @@ chatArea.innerHTML = '';
 
 list.forEach(msg=>{
 
-const wrap =
+const div =
 document.createElement('div');
 
-wrap.className = 'message';
+div.className = 'message';
 
-wrap.innerHTML = `
+div.innerHTML = `
 
 <div class="profile">
 
@@ -881,6 +912,8 @@ ${profileData.artistName || 'HAN YUJIN'}
 
 <div class="bubble-row">
 
+<div class="bubble-wrap">
+
 <div class="
 bubble
 ${msg.image ? 'image-bubble' : ''}
@@ -889,16 +922,30 @@ ${msg.image ? 'image-bubble' : ''}
 ${
 msg.image
 ? `
-<img src="${msg.image}">
+<img
+src="${msg.image}"
+loading="lazy"
+referrerpolicy="no-referrer"
+>
 `
 : `
 ${msg.text || ''}
 `
 }
 
+</div>
+
+<div class="bottom-row">
+
+<div class="time">
+${msg.time || ''}
+</div>
+
 <div
-class="favorite-btn
-${msg.favorite ? 'active' : ''}"
+class="
+favorite-btn
+${msg.favorite ? 'active' : ''}
+"
 onclick="toggleFavorite('${msg.id}')"
 >
 ★
@@ -906,8 +953,6 @@ onclick="toggleFavorite('${msg.id}')"
 
 </div>
 
-<div class="time">
-${msg.time || ''}
 </div>
 
 </div>
@@ -916,16 +961,13 @@ ${msg.time || ''}
 
 `;
 
-chatArea.appendChild(wrap);
+chatArea.appendChild(div);
 
 });
 
-chatArea.scrollTop =
-chatArea.scrollHeight;
-
 }
 
-/* 메시지 추가 */
+/* 추가 */
 
 async function addMessage(){
 
@@ -948,8 +990,6 @@ return;
 
 }
 
-try{
-
 await db
 .collection('bubbleArchives')
 .doc(archiveId)
@@ -967,17 +1007,9 @@ createdAt:Date.now()
 
 closeMessageModal();
 
-document.getElementById('messageInput').value = '';
-document.getElementById('messageTimeInput').value = '';
-document.getElementById('messageImageInput').value = '';
-
-}catch(error){
-
-console.error(error);
-
-alert('저장 실패! Firestore 규칙 확인해줘 😢');
-
-}
+document.getElementById('messageInput').value='';
+document.getElementById('messageTimeInput').value='';
+document.getElementById('messageImageInput').value='';
 
 }
 
@@ -986,7 +1018,7 @@ alert('저장 실패! Firestore 규칙 확인해줘 😢');
 async function toggleFavorite(id){
 
 const target =
-messages.find(m=>m.id === id);
+messages.find(m=>m.id===id);
 
 await db
 .collection('bubbleArchives')
@@ -995,7 +1027,7 @@ await db
 .doc(id)
 .update({
 
-favorite: !target.favorite
+favorite:!target.favorite
 
 });
 
@@ -1005,20 +1037,20 @@ favorite: !target.favorite
 
 function toggleSearch(){
 
-const bar =
-document.getElementById('searchBar');
+const wrap =
+document.getElementById('searchWrap');
 
 const status =
 document.getElementById('statusText');
 
-if(bar.style.display === 'block'){
+if(wrap.style.display === 'block'){
 
-bar.style.display = 'none';
+wrap.style.display = 'none';
 status.style.display = 'block';
 
 }else{
 
-bar.style.display = 'block';
+wrap.style.display = 'block';
 status.style.display = 'none';
 
 }
@@ -1064,7 +1096,7 @@ menu.style.display === 'flex'
 
 function openProfileModal(){
 
-document.getElementById('profileOverlay').style.display = 'flex';
+document.getElementById('profileOverlay').style.display='flex';
 
 toggleMenu();
 
@@ -1072,37 +1104,31 @@ toggleMenu();
 
 function closeProfileModal(){
 
-document.getElementById('profileOverlay').style.display = 'none';
+document.getElementById('profileOverlay').style.display='none';
 
 }
 
 async function saveProfile(){
-
-const roomTitle =
-document.getElementById('roomTitleInput').value;
-
-const artistName =
-document.getElementById('artistNameInput').value;
-
-const dday =
-document.getElementById('ddayInput').value;
-
-const profileImage =
-document.getElementById('profileImageInput').value;
-
-const background =
-document.getElementById('backgroundInput').value;
 
 await db
 .collection('bubbleProfiles')
 .doc(archiveId)
 .set({
 
-roomTitle,
-artistName,
-dday,
-profileImage,
-background
+roomTitle:
+document.getElementById('roomTitleInput').value,
+
+artistName:
+document.getElementById('artistNameInput').value,
+
+dday:
+document.getElementById('ddayInput').value,
+
+profileImage:
+document.getElementById('profileImageInput').value,
+
+background:
+document.getElementById('backgroundInput').value
 
 });
 
@@ -1110,17 +1136,17 @@ closeProfileModal();
 
 }
 
-/* 메시지 모달 */
+/* 메시지 */
 
 function openMessageModal(){
 
-document.getElementById('messageOverlay').style.display = 'flex';
+document.getElementById('messageOverlay').style.display='flex';
 
 }
 
 function closeMessageModal(){
 
-document.getElementById('messageOverlay').style.display = 'none';
+document.getElementById('messageOverlay').style.display='none';
 
 }
 
@@ -1128,24 +1154,26 @@ document.getElementById('messageOverlay').style.display = 'none';
 
 function openGallery(){
 
-document.getElementById('galleryOverlay').style.display = 'flex';
+document.getElementById('galleryOverlay').style.display='flex';
+
+document.getElementById('galleryTitle').innerText =
+'사진 모아보기';
 
 const grid =
 document.getElementById('galleryGrid');
 
-grid.innerHTML = '';
+grid.innerHTML='';
 
-const onlyImages =
-messages.filter(msg=>msg.image);
+messages
+.filter(msg=>msg.image)
+.forEach(msg=>{
 
-onlyImages.forEach(msg=>{
-
-const item =
+const div =
 document.createElement('div');
 
-item.className = 'gallery-item';
+div.className='gallery-item';
 
-item.innerHTML = `
+div.innerHTML=`
 
 <img src="${msg.image}">
 
@@ -1158,7 +1186,7 @@ onclick="window.open('${msg.image}','_blank')"
 
 `;
 
-grid.appendChild(item);
+grid.appendChild(div);
 
 });
 
@@ -1166,34 +1194,28 @@ toggleMenu();
 
 }
 
-function closeGallery(){
-
-document.getElementById('galleryOverlay').style.display = 'none';
-
-}
-
-/* 즐겨찾기 */
-
 function openFavorites(){
 
-document.getElementById('galleryOverlay').style.display = 'flex';
+document.getElementById('galleryOverlay').style.display='flex';
+
+document.getElementById('galleryTitle').innerText =
+'즐겨찾기';
 
 const grid =
 document.getElementById('galleryGrid');
 
-grid.innerHTML = '';
+grid.innerHTML='';
 
-const favorites =
-messages.filter(msg=>msg.favorite);
+messages
+.filter(msg=>msg.favorite)
+.forEach(msg=>{
 
-favorites.forEach(msg=>{
-
-const item =
+const div =
 document.createElement('div');
 
-item.className = 'gallery-item';
+div.className='gallery-item';
 
-item.innerHTML = msg.image
+div.innerHTML = msg.image
 ? `
 <img src="${msg.image}">
 `
@@ -1206,14 +1228,14 @@ align-items:center;
 justify-content:center;
 padding:18px;
 font-size:15px;
-line-height:1.5;
+line-height:1.6;
 text-align:center;
 ">
 ${msg.text}
 </div>
 `;
 
-grid.appendChild(item);
+grid.appendChild(div);
 
 });
 
@@ -1221,9 +1243,14 @@ toggleMenu();
 
 }
 
+function closeGallery(){
+
+document.getElementById('galleryOverlay').style.display='none';
+
+}
+
 </script>
 
 </body>
 </html>
-
 
