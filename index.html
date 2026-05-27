@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bubble Archive</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -23,105 +21,104 @@ box-sizing:border-box;
 }
 
 body{
-background:#dcdcdc;
 font-family:'Pretendard',sans-serif;
+background:#d9d9d9;
 height:100vh;
 overflow:hidden;
+}
+
+.background{
+position:fixed;
+inset:0;
+background-image:url('PASTE_MOMONGA_BACKGROUND_LINK_HERE');
+background-size:cover;
+background-position:center;
+filter:blur(0px);
+transform:scale(1.05);
+z-index:-2;
+}
+
+.background::after{
+content:'';
+position:absolute;
+inset:0;
+background:rgba(255,255,255,0.72);
+backdrop-filter:blur(6px);
 }
 
 .app{
 width:100%;
-max-width:720px;
+max-width:760px;
 height:100vh;
 margin:auto;
-position:relative;
-background:#dcdcdc;
-overflow:hidden;
-}
-
-.bg{
-position:absolute;
-inset:0;
-background-size:cover;
-background-position:center;
-opacity:0.18;
-z-index:0;
-}
-
-.topbar{
-position:fixed;
-top:0;
-left:50%;
-transform:translateX(-50%);
-width:100%;
-max-width:720px;
-height:110px;
-background:#f7f7f7;
-border-bottom-left-radius:24px;
-border-bottom-right-radius:24px;
-box-shadow:0 4px 18px rgba(0,0,0,0.08);
-z-index:100;
 display:flex;
 flex-direction:column;
-justify-content:center;
-padding-top:8px;
+position:relative;
+}
+
+.header{
+height:120px;
+background:#f8f8f8;
+border-bottom-left-radius:24px;
+border-bottom-right-radius:24px;
+padding:22px 20px 16px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+flex-shrink:0;
 }
 
 .top-row{
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 20px;
-}
-
-.top-title{
-font-size:20px;
-font-weight:700;
-color:#111;
 }
 
 .icon-btn{
+width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
 font-size:28px;
 color:#111;
-background:none;
-border:none;
-cursor:pointer;
 }
 
-.logo{
-margin-top:8px;
+.room-title{
+font-size:20px;
+font-weight:700;
+}
+
+.sub-title{
+margin-top:14px;
 text-align:center;
-font-size:17px;
+font-size:20px;
 font-weight:700;
 font-style:italic;
-color:#111;
 }
 
-.chat-area{
-position:absolute;
-top:110px;
-bottom:90px;
-left:0;
-right:0;
-overflow-y:auto;
-padding:20px 14px 60px;
-z-index:1;
+.chat-wrap{
+flex:1;
+overflow:auto;
+padding:18px 14px 180px;
 }
 
-.message{
+.chat-wrap::-webkit-scrollbar{
+display:none;
+}
+
+.message-row{
 display:flex;
 align-items:flex-start;
 gap:10px;
-margin-bottom:22px;
+margin-bottom:18px;
 }
 
 .profile{
-width:52px;
-height:52px;
+width:48px;
+height:48px;
 border-radius:50%;
 overflow:hidden;
-border:2px solid #ff8d52;
 flex-shrink:0;
+border:2px solid #ff8b3d;
 background:#fff;
 }
 
@@ -129,14 +126,13 @@ background:#fff;
 width:100%;
 height:100%;
 object-fit:cover;
-display:block;
 }
 
 .message-content{
 max-width:78%;
 }
 
-.name-row{
+.artist-line{
 display:flex;
 align-items:center;
 gap:6px;
@@ -144,79 +140,76 @@ margin-bottom:6px;
 }
 
 .artist-badge{
-background:#ff7f3e;
+background:#ff7f32;
 color:white;
-font-size:11px;
+font-size:12px;
 font-weight:700;
-padding:3px 7px;
+padding:3px 8px;
 border-radius:6px;
-line-height:1;
 }
 
 .artist-name{
-font-size:15px;
+font-size:14px;
 font-weight:700;
-color:#111;
 }
 
 .bubble{
-background:#f4f4f4;
-border-radius:18px;
+background:#f7f7f7;
 padding:14px 16px;
-display:inline-block;
+border-radius:20px;
 font-size:17px;
 line-height:1.5;
-color:#111;
 word-break:break-word;
-max-width:100%;
-box-shadow:0 2px 6px rgba(0,0,0,0.03);
-}
-
-.photo{
-margin-top:2px;
-border-radius:20px;
-overflow:hidden;
-background:#eee;
+box-shadow:0 2px 8px rgba(0,0,0,0.04);
+display:inline-block;
 max-width:100%;
 }
 
-.photo img{
+.message-image{
 width:100%;
+max-width:500px;
+border-radius:24px;
 display:block;
+user-select:none;
+-webkit-user-drag:none;
+margin-top:4px;
 }
 
 .time{
 font-size:13px;
-color:#9b9b9b;
-margin-top:6px;
+color:#9c9c9c;
+margin-top:8px;
 margin-left:8px;
 }
 
-.input-bar{
+.bottom-bar{
 position:fixed;
-bottom:0;
+bottom:18px;
 left:50%;
 transform:translateX(-50%);
-width:100%;
-max-width:720px;
-height:90px;
-background:#f5f5f5;
+width:calc(100% - 24px);
+max-width:730px;
+height:74px;
+background:rgba(255,255,255,0.92);
+border-radius:999px;
 display:flex;
 align-items:center;
-padding:0 16px;
-gap:12px;
-z-index:100;
+padding:0 20px;
+box-shadow:0 8px 24px rgba(0,0,0,0.08);
+backdrop-filter:blur(10px);
 }
 
 .fake-input{
 flex:1;
-height:54px;
+height:46px;
+background:#fff;
 border-radius:999px;
-background:white;
-border:1px solid #ececec;
 }
 
-.bottom-icon{
+.bottom-icons{
+display:flex;
+gap:18px;
+margin-left:16px;
 font-size:30px;
 color:#666;
 }
@@ -229,36 +222,35 @@ width:58px;
 height:58px;
 border:none;
 border-radius:50%;
-background:#111;
+background:#8fd3ff;
 color:white;
-font-size:24px;
-cursor:pointer;
-z-index:200;
-box-shadow:0 10px 24px rgba(0,0,0,0.18);
-}
-
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.45);
-display:none;
-justify-content:center;
-align-items:flex-end;
+font-size:26px;
+font-weight:700;
+box-shadow:0 10px 24px rgba(143,211,255,0.45);
 z-index:999;
 }
 
 .panel{
-width:100%;
-max-width:720px;
-max-height:92vh;
+position:fixed;
+top:0;
+right:-420px;
+width:400px;
+max-width:100%;
+height:100vh;
+background:#fff;
+transition:0.28s ease;
 overflow:auto;
-background:white;
-border-radius:28px 28px 0 0;
-padding:24px 18px 40px;
+padding:24px 18px 120px;
+z-index:2000;
+box-shadow:-10px 0 30px rgba(0,0,0,0.08);
+}
+
+.panel.open{
+right:0;
 }
 
 .panel-title{
-font-size:25px;
+font-size:28px;
 font-weight:700;
 margin-bottom:20px;
 }
@@ -268,28 +260,28 @@ width:100%;
 border:none;
 outline:none;
 background:#f4f4f4;
-border-radius:18px;
+border-radius:16px;
 padding:16px;
+margin-bottom:12px;
 font-size:15px;
-margin-bottom:14px;
 font-family:'Pretendard',sans-serif;
 }
 
 textarea.input{
-resize:none;
 min-height:120px;
+resize:none;
 }
 
 .submit{
 width:100%;
-height:56px;
+height:54px;
 border:none;
 border-radius:18px;
-background:#111;
+background:#8fd3ff;
 color:white;
 font-size:16px;
 font-weight:700;
-cursor:pointer;
+margin-bottom:14px;
 }
 
 .gallery-btn{
@@ -300,16 +292,23 @@ width:58px;
 height:58px;
 border:none;
 border-radius:50%;
-background:white;
+background:#ffffff;
 font-size:24px;
-cursor:pointer;
-z-index:200;
-box-shadow:0 10px 24px rgba(0,0,0,0.12);
+box-shadow:0 10px 24px rgba(0,0,0,0.08);
+z-index:999;
+}
+
+.search-box{
+position:sticky;
+top:0;
+background:#fff;
+padding-bottom:12px;
+margin-bottom:16px;
 }
 
 .gallery{
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:1fr 1fr;
 gap:10px;
 }
 
@@ -319,174 +318,97 @@ border-radius:18px;
 display:block;
 }
 
-@media (max-width:480px){
-
-.topbar{
-height:102px;
+.favorite{
+position:absolute;
+right:12px;
+top:12px;
+font-size:22px;
 }
 
-.chat-area{
-top:102px;
+@media (max-width:700px){
+
+.header{
+height:112px;
+}
+
+.room-title{
+font-size:18px;
 }
 
 .bubble{
 font-size:16px;
 }
 
+.panel{
+width:100%;
+}
+
 }
 
 </style>
-
 </head>
-
 <body>
+
+<div class="background"></div>
 
 <div class="app">
 
-<div
-class="bg"
-id="bg"
-style="background-image:url('여기에배경이미지링크넣기');"
-></div>
-
-<div class="topbar">
+<div class="header">
 
 <div class="top-row">
-
-<button class="icon-btn">‹</button>
-
-<div
-class="top-title"
-id="roomTitle"
->
-HAN YUJIN
+<div class="icon-btn">‹</div>
+<div class="room-title" id="roomTitle">HAN YUJIN</div>
+<div class="icon-btn">⌕</div>
 </div>
 
-<div style="display:flex;gap:12px;">
-<button class="icon-btn">⌕</button>
-<button class="icon-btn">⋮</button>
+<div class="sub-title" id="roomSubTitle">
+ bubble 🩷 + 1
 </div>
 
 </div>
 
-<div class="logo">
-bubble 💗 + 1
-</div>
+<div class="chat-wrap" id="chatWrap"></div>
 
 </div>
 
-<div
-class="chat-area"
-id="chatArea"
-></div>
+<button class="gallery-btn" onclick="openGallery()">🖼</button>
+<button class="admin-btn" onclick="togglePanel()">＋</button>
 
-<div class="input-bar">
-
+<div class="bottom-bar">
 <div class="fake-input"></div>
-
-<div class="bottom-icon">☺</div>
-
-<div class="bottom-icon">✈</div>
-
+<div class="bottom-icons">
+☺ ✈
+</div>
 </div>
 
-<button
-class="gallery-btn"
-onclick="openGallery()"
->
-🖼
-</button>
-
-<button
-class="admin-btn"
-onclick="openAdmin()"
->
-＋
-</button>
-
-</div>
-
-<div
-class="overlay"
-id="overlay"
->
-
-<div class="panel">
+<div class="panel" id="panel">
 
 <div class="panel-title">
+ADMIN PANEL
+</div>
+
+<input class="input" id="artistName" placeholder="아티스트 이름">
+<input class="input" id="artistPhoto" placeholder="프로필 사진 링크">
+<input class="input" id="backgroundInput" placeholder="배경 이미지 링크">
+
+<button class="submit" onclick="saveSettings()">
+프로필 저장
+</button>
+
+<input class="input" id="messageText" placeholder="버블 내용">
+<input class="input" id="messageImage" placeholder="사진 링크 (선택)">
+<input class="input" id="messageTime" placeholder="오후 3:20">
+
+<button class="submit" onclick="addMessage()">
 버블 추가
-</div>
-
-<input
-class="input"
-id="artistName"
-placeholder="아티스트 이름"
-/>
-
-<input
-class="input"
-id="artistPhoto"
-placeholder="프로필 사진 링크"
-/>
-
-<input
-class="input"
-id="roomName"
-placeholder="상단 방 제목"
-/>
-
-<input
-class="input"
-id="bgInput"
-placeholder="배경 이미지 링크"
-/>
-
-<textarea
-class="input"
-id="messageInput"
-placeholder="버블 내용"
-></textarea>
-
-<input
-class="input"
-id="photoInput"
-placeholder="사진 링크 (없으면 비워둬)"
-/>
-
-<input
-class="input"
-id="timeInput"
-placeholder="오후 3:20"
-/>
-
-<button
-class="submit"
-onclick="addBubble()"
->
-저장하기
 </button>
 
-</div>
+<input class="input" id="searchInput" placeholder="전체 archive 검색...">
+<button class="submit" onclick="runSearch()">
+검색
+</button>
 
-</div>
-
-<div
-class="overlay"
-id="galleryOverlay"
->
-
-<div class="panel">
-
-<div class="panel-title">
-셀카 모아보기
-</div>
-
-<div
-class="gallery"
-id="gallery"
-></div>
-
-</div>
+<div id="searchResults"></div>
 
 </div>
 
@@ -503,231 +425,234 @@ measurementId: "G-3QK856857H"
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
-const params =
-new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
+const archiveId = params.get('archive') || 'default';
 
-const archiveId =
-params.get('archive') || 'default';
+const chatWrap = document.getElementById('chatWrap');
 
-const chatArea =
-document.getElementById('chatArea');
+let messages = [];
 
-const overlay =
-document.getElementById('overlay');
+function togglePanel(){
 
-const galleryOverlay =
-document.getElementById('galleryOverlay');
-
-let bubbles = [];
-
-overlay.addEventListener('click',(e)=>{
-
-if(e.target === overlay){
-
-overlay.style.display = 'none';
+document
+.getElementById('panel')
+.classList.toggle('open');
 
 }
 
-});
+async function saveSettings(){
 
-galleryOverlay.addEventListener('click',(e)=>{
+const data = {
+artistName:document.getElementById('artistName').value,
+artistPhoto:document.getElementById('artistPhoto').value,
+backgroundImage:document.getElementById('backgroundInput').value
+};
 
-if(e.target === galleryOverlay){
+await db
+.collection('archives')
+.doc(archiveId)
+.collection('settings')
+.doc('profile')
+.set(data);
 
-galleryOverlay.style.display = 'none';
+loadSettings();
 
 }
 
+async function loadSettings(){
+
+const doc = await db
+.collection('archives')
+.doc(archiveId)
+.collection('settings')
+.doc('profile')
+.get();
+
+if(!doc.exists) return;
+
+const data = doc.data();
+
+if(data.artistName){
+document.getElementById('roomTitle').textContent = data.artistName;
+}
+
+if(data.backgroundImage){
+document.querySelector('.background').style.backgroundImage = `url('${data.backgroundImage}')`;
+}
+
+}
+
+async function addMessage(){
+
+await db
+.collection('archives')
+.doc(archiveId)
+.collection('messages')
+.add({
+text:document.getElementById('messageText').value,
+image:document.getElementById('messageImage').value,
+time:document.getElementById('messageTime').value,
+createdAt:Date.now(),
+favorite:false
 });
 
-function openAdmin(){
+}
 
-overlay.style.display = 'flex';
+db.collection('archives')
+.doc(archiveId)
+.collection('messages')
+.orderBy('createdAt','asc')
+.onSnapshot(snapshot=>{
+
+messages = snapshot.docs.map(doc=>({
+id:doc.id,
+...doc.data()
+}));
+
+renderMessages(messages);
+
+});
+
+function renderMessages(list){
+
+chatWrap.innerHTML = '';
+
+list.forEach(msg=>{
+
+const div = document.createElement('div');
+
+div.className = 'message-row';
+
+const imageHtml = msg.image
+? `<img class="message-image" src="${msg.image}">`
+: '';
+
+const favorite = msg.favorite ? '⭐' : '☆';
+
+div.innerHTML = `
+
+<div class="profile">
+<img src="${document.getElementById('artistPhoto').value || 'https://i.imgur.com/8Km9tLL.jpg'}">
+</div>
+
+<div class="message-content">
+
+<div class="artist-line">
+<div class="artist-badge">ARTIST</div>
+<div class="artist-name">${document.getElementById('artistName').value || 'HAN YUJIN'}</div>
+</div>
+
+<div style="position:relative;">
+
+<div class="favorite" onclick="toggleFavorite('${msg.id}',${msg.favorite})">
+${favorite}
+</div>
+
+${imageHtml}
+
+${msg.text
+? `<div class="bubble">${msg.text}</div>`
+: ''}
+
+</div>
+
+<div class="time">
+${msg.time || ''}
+</div>
+
+</div>
+
+`;
+
+chatWrap.appendChild(div);
+
+});
+
+}
+
+async function toggleFavorite(id,current){
+
+await db
+.collection('archives')
+.doc(archiveId)
+.collection('messages')
+.doc(id)
+.update({
+favorite:!current
+});
 
 }
 
 function openGallery(){
 
-galleryOverlay.style.display = 'flex';
+const images = messages
+.filter(m=>m.image)
+.map(m=>`
+<a href="${m.image}" target="_blank">
+<img src="${m.image}">
+</a>
+`).join('');
 
-renderGallery();
+const win = window.open('','_blank');
+
+win.document.write(`
+<style>
+body{
+margin:0;
+padding:20px;
+font-family:Pretendard,sans-serif;
+background:#f5f5f5;
+}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+img{
+width:100%;
+border-radius:20px;
+}
+</style>
+<div class="grid">${images}</div>
+`);
 
 }
 
-db.collection("bubbleArchives")
-.doc(archiveId)
-.collection("messages")
-.orderBy("createdAt","asc")
-.onSnapshot(snapshot=>{
+async function runSearch(){
 
-bubbles = snapshot.docs.map(doc=>({
+const value =
+document.getElementById('searchInput')
+.value
+.toLowerCase();
 
-id: doc.id,
-...doc.data()
+const snapshot = await db
+.collectionGroup('messages')
+.get();
 
-}));
+const results = snapshot.docs
+.map(doc=>doc.data())
+.filter(msg=>(msg.text || '').toLowerCase().includes(value));
 
-renderBubbles();
+const html = results.map(msg=>`
+<div style="
+padding:12px;
+border-radius:14px;
+background:#f5f5f5;
+margin-bottom:10px;
+font-size:14px;
+">
+${msg.text}
+</div>
+`).join('');
 
-});
-
-function renderBubbles(){
-
-chatArea.innerHTML = '';
-
-bubbles.forEach(item=>{
-
-if(item.roomName){
-
-document.getElementById('roomTitle').textContent =
-item.roomName;
+document.getElementById('searchResults').innerHTML = html;
 
 }
 
-if(item.background){
-
-document.getElementById('bg').style.backgroundImage =
-`url('${item.background}')`;
-
-}
-
-const message =
-document.createElement('div');
-
-message.className = 'message';
-
-message.innerHTML = `
-
-<div class="profile">
-<img src="${item.artistPhoto || ''}">
-</div>
-
-<div class="message-content">
-
-<div class="name-row">
-
-<div class="artist-badge">
-ARTIST
-</div>
-
-<div class="artist-name">
-${item.artistName || ''}
-</div>
-
-</div>
-
-${item.photo
-? `
-<div class="photo">
-<img src="${item.photo}">
-</div>
-`
-: `
-<div class="bubble">
-${item.message || ''}
-</div>
-`
-}
-
-${item.photo && item.message
-? `
-<div
-class="bubble"
-style="margin-top:8px;"
->
-${item.message}
-</div>
-`
-: ''}
-
-<div class="time">
-${item.time || ''}
-</div>
-
-</div>
-
-`;
-
-chatArea.appendChild(message);
-
-});
-
-chatArea.scrollTop =
-chatArea.scrollHeight;
-
-}
-
-async function addBubble(){
-
-await db
-.collection("bubbleArchives")
-.doc(archiveId)
-.collection("messages")
-.add({
-
-artistName:
-document.getElementById('artistName').value,
-
-artistPhoto:
-document.getElementById('artistPhoto').value,
-
-roomName:
-document.getElementById('roomName').value,
-
-background:
-document.getElementById('bgInput').value,
-
-message:
-document.getElementById('messageInput').value,
-
-photo:
-document.getElementById('photoInput').value,
-
-time:
-document.getElementById('timeInput').value,
-
-createdAt:
-Date.now()
-
-});
-
-overlay.style.display = 'none';
-
-document
-.querySelectorAll('.input')
-.forEach(input=>{
-
-input.value = '';
-
-});
-
-}
-
-function renderGallery(){
-
-const gallery =
-document.getElementById('gallery');
-
-gallery.innerHTML = '';
-
-bubbles
-.filter(item=>item.photo)
-.forEach(item=>{
-
-gallery.innerHTML += `
-
-<img src="${item.photo}">
-
-`;
-
-});
-
-}
+loadSettings();
 
 </script>
-
 </body>
 </html>
