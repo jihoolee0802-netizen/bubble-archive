@@ -2,16 +2,16 @@
 <html lang="ko">
 <head>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Bubble Archive</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -22,17 +22,14 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
-html,
 body{
-width:100%;
-min-height:100%;
 font-family:'Pretendard',sans-serif;
-background:#ECECEC;
+background:#dfeef7;
+min-height:100vh;
+display:flex;
+justify-content:center;
+padding:0;
 overflow-x:hidden;
-}
-
-body{
-position:relative;
 }
 
 .background{
@@ -40,423 +37,404 @@ position:fixed;
 inset:0;
 background-size:cover;
 background-position:center;
-opacity:0.16;
-z-index:-1;
+z-index:-2;
 }
 
-.app{
+.background::after{
+content:'';
+position:absolute;
+inset:0;
+background:rgba(255,255,255,0.35);
+backdrop-filter:blur(8px);
+}
+
+.phone{
+
 width:100%;
+max-width:700px;
+min-height:100vh;
+background:white;
 display:flex;
-justify-content:center;
-}
-
-.chat-wrap{
-width:100%;
-max-width:980px;
-min-height:1800px;
-background:#ECECEC;
+flex-direction:column;
 position:relative;
+overflow:hidden;
+
 }
 
-/* 상단 */
+.header{
 
-.top-bar{
+padding:18px 18px 10px;
+background:white;
+border-bottom:1px solid #edf2f7;
 position:sticky;
 top:0;
 z-index:100;
-background:white;
-padding:22px 20px 18px;
-border-bottom:1px solid #EFEFEF;
+
 }
 
-.top-row{
-position:relative;
+.topbar{
+
 display:flex;
-justify-content:center;
 align-items:center;
-height:34px;
+justify-content:space-between;
+
+}
+
+.room-center{
+flex:1;
+text-align:center;
 }
 
 .room-title{
-font-size:22px;
-font-weight:800;
-letter-spacing:-0.03em;
+font-size:18px;
+font-weight:700;
 color:#111;
-text-align:center;
 }
 
-.right-icons{
-position:absolute;
-right:0;
-display:flex;
-align-items:center;
-gap:18px;
+.room-status{
+margin-top:4px;
+font-size:12px;
+color:#111;
 }
 
 .icon-btn{
-font-size:24px;
-cursor:pointer;
-user-select:none;
-}
 
-.status-text{
-margin-top:10px;
-text-align:center;
-font-size:14px;
-font-weight:700;
-color:#111;
-}
-
-.search-wrap{
-display:none;
-margin-top:14px;
-}
-
-.search-input{
-width:100%;
-height:50px;
+width:36px;
+height:36px;
 border:none;
-outline:none;
-background:#F5F5F5;
-border-radius:16px;
-padding:0 16px;
-font-size:15px;
-font-family:'Pretendard',sans-serif;
+background:none;
+font-size:22px;
+cursor:pointer;
+color:#111;
+
 }
 
-/* 채팅 */
+.messages{
 
-.chat-area{
-padding:26px 16px 260px;
-}
-
-.message{
+padding:24px 14px 180px;
 display:flex;
-gap:12px;
-align-items:flex-start;
-margin-bottom:36px;
+flex-direction:column;
+gap:18px;
+min-height:150vh;
+
+}
+
+.message-row{
+
+display:flex;
+align-items:flex-end;
+gap:8px;
+
+}
+
+.artist-row{
+justify-content:flex-start;
+}
+
+.me-row{
+justify-content:flex-end;
 }
 
 .profile{
-width:54px;
-height:54px;
+
+width:42px;
+height:42px;
 border-radius:50%;
 overflow:hidden;
-border:3px solid #FF8B38;
-background:white;
 flex-shrink:0;
+border:1px solid #e5e7eb;
+background:#f3f4f6;
+
 }
 
 .profile img{
+
 width:100%;
 height:100%;
 object-fit:cover;
+display:block;
+
 }
 
-.message-content{
-max-width:82%;
-}
-
-.name-row{
+.bubble-area{
+max-width:72%;
 display:flex;
-align-items:center;
-gap:8px;
-margin-bottom:8px;
+flex-direction:column;
+gap:5px;
 }
 
-.artist-tag{
-background:#FF8B38;
-color:white;
-padding:4px 8px;
-border-radius:8px;
+.artist-label{
 font-size:11px;
-font-weight:800;
-line-height:1;
+font-weight:700;
+color:#9ca3af;
+margin-left:6px;
+letter-spacing:0.04em;
 }
 
 .artist-name{
-font-size:15px;
-font-weight:800;
+font-size:14px;
+font-weight:700;
 color:#111;
+margin-left:6px;
+margin-top:2px;
+}
+
+.bubble-wrap{
+display:flex;
+align-items:flex-end;
+gap:6px;
 }
 
 .bubble{
-background:white;
-padding:18px 20px;
-border-radius:26px;
-font-size:18px;
-line-height:1.55;
-color:#111;
+
+padding:12px 14px;
+border-radius:18px;
+font-size:15px;
+line-height:1.5;
 word-break:break-word;
-box-shadow:0 3px 14px rgba(0,0,0,0.04);
+position:relative;
+
 }
 
-.image-bubble{
-padding:0;
-overflow:hidden;
-background:none;
-box-shadow:none;
+.artist-bubble{
+background:#f5f7fa;
+color:#111;
+border-top-left-radius:6px;
 }
 
-.image-bubble img{
+.me-bubble{
+background:#9ec4e8;
+color:white;
+border-top-right-radius:6px;
+}
+
+.message-time{
+font-size:11px;
+color:#6b7280;
+margin-bottom:3px;
+white-space:nowrap;
+}
+
+.bubble-image{
+
 width:100%;
-max-width:520px;
+border-radius:16px;
 display:block;
-border-radius:28px;
-}
+margin-top:2px;
 
-.bottom-row{
-display:flex;
-align-items:center;
-gap:8px;
-margin-top:8px;
-padding-left:6px;
-}
-
-.time{
-font-size:13px;
-font-weight:600;
-color:#8F8F8F;
 }
 
 .favorite-btn{
-width:28px;
-height:28px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#F2F2F2;
-font-size:15px;
+
+border:none;
+background:none;
+font-size:18px;
 cursor:pointer;
+padding:2px;
+color:#b6d2ea;
 flex-shrink:0;
+
 }
 
 .favorite-btn.active{
-background:#BFE8FF;
-color:#2478A9;
+color:#9ec4e8;
 }
 
-/* 하단 */
+.bottom-bar{
 
-.bottom-input{
 position:fixed;
+bottom:0;
 left:50%;
 transform:translateX(-50%);
-bottom:18px;
-width:calc(100% - 24px);
-max-width:930px;
-height:78px;
-border-radius:999px;
-background:#F8F8F8;
+width:100%;
+max-width:700px;
+padding:14px;
+background:white;
+border-top:1px solid #edf2f7;
 display:flex;
-align-items:center;
-padding:0 24px;
-box-shadow:0 10px 28px rgba(0,0,0,0.08);
+gap:10px;
 z-index:200;
-cursor:pointer;
+
 }
 
 .fake-input{
+
 flex:1;
-font-size:17px;
-font-weight:600;
-color:#B7B7B7;
-}
-
-.bottom-icons{
+height:52px;
+border-radius:999px;
+background:#f3f4f6;
 display:flex;
-gap:14px;
-font-size:28px;
+align-items:center;
+padding:0 18px;
+font-size:14px;
+color:#9ca3af;
+cursor:pointer;
+
 }
 
-.done-mode{
-background:#EDEDED;
-cursor:default;
-}
+.send-btn{
 
-/* 메뉴 */
-
-.menu-panel{
-position:fixed;
-top:90px;
-right:18px;
-width:240px;
-background:white;
-border-radius:24px;
-padding:14px;
-display:none;
-flex-direction:column;
-gap:10px;
-z-index:999;
-box-shadow:0 14px 40px rgba(0,0,0,0.12);
-}
-
-.menu-btn{
+width:52px;
 height:52px;
 border:none;
-border-radius:16px;
-background:#F5F5F5;
-font-size:15px;
-font-weight:700;
-font-family:'Pretendard',sans-serif;
+border-radius:50%;
+background:#9ec4e8;
+color:white;
+font-size:20px;
 cursor:pointer;
-}
 
-.menu-btn.blue{
-background:#BFE8FF;
-color:#2478A9;
-}
-
-/* 모달 */
-
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.35);
-display:none;
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:1000;
 }
 
 .modal{
-width:100%;
-max-width:560px;
-max-height:88vh;
-overflow:auto;
-background:white;
-border-radius:32px;
-padding:26px;
+
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.4);
+display:none;
+justify-content:center;
+align-items:flex-end;
+z-index:999;
+
 }
 
-.modal::-webkit-scrollbar{
-display:none;
+.modal-content{
+
+width:100%;
+max-width:700px;
+background:white;
+border-radius:28px 28px 0 0;
+padding:24px 18px 40px;
+max-height:88vh;
+overflow:auto;
+
 }
 
 .modal-title{
-font-size:25px;
-font-weight:800;
-margin-bottom:22px;
+
+font-size:22px;
+font-weight:700;
+margin-bottom:18px;
+
 }
 
 .input{
+
 width:100%;
-height:56px;
+height:52px;
 border:none;
-outline:none;
-border-radius:18px;
-background:#F5F5F5;
-padding:0 18px;
-font-size:15px;
+background:#f3f4f6;
+border-radius:16px;
+padding:0 16px;
+margin-bottom:12px;
+font-size:14px;
 font-family:'Pretendard',sans-serif;
-margin-bottom:14px;
+outline:none;
+
 }
 
 .textarea{
+
 width:100%;
-height:180px;
+height:120px;
 border:none;
-outline:none;
-border-radius:22px;
-background:#F5F5F5;
-padding:18px;
-font-size:15px;
-line-height:1.6;
+background:#f3f4f6;
+border-radius:16px;
+padding:16px;
+margin-bottom:12px;
+font-size:14px;
 font-family:'Pretendard',sans-serif;
+outline:none;
 resize:none;
-margin-bottom:14px;
+
 }
 
 .submit{
-width:100%;
-height:58px;
-border:none;
-border-radius:18px;
-background:#BFE8FF;
-color:#2478A9;
-font-size:16px;
-font-weight:800;
-font-family:'Pretendard',sans-serif;
-cursor:pointer;
-margin-bottom:10px;
-}
 
-.done-btn{
-background:#111;
-color:white;
-}
-
-.cancel{
 width:100%;
 height:54px;
 border:none;
 border-radius:18px;
-background:#F1F1F1;
-font-size:15px;
+background:#9ec4e8;
+color:white;
+font-size:16px;
 font-weight:700;
-font-family:'Pretendard',sans-serif;
 cursor:pointer;
+
 }
 
-/* 갤러리 */
+.menu{
 
-.gallery-grid{
+position:absolute;
+top:62px;
+right:18px;
+background:white;
+border-radius:18px;
+padding:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+display:none;
+flex-direction:column;
+gap:8px;
+z-index:999;
+
+}
+
+.menu button{
+
+border:none;
+background:#f3f4f6;
+height:42px;
+padding:0 16px;
+border-radius:12px;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+
+}
+
+.gallery{
+
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:12px;
+gap:10px;
+
 }
 
-.gallery-item{
-position:relative;
-overflow:hidden;
-border-radius:22px;
-aspect-ratio:1/1;
-background:#EEE;
-}
+.gallery img{
 
-.gallery-item img{
 width:100%;
-height:100%;
+aspect-ratio:1/1;
 object-fit:cover;
+border-radius:16px;
+
 }
 
-.download-btn{
-position:absolute;
-bottom:10px;
-right:10px;
+.search-box{
+display:none;
+margin-top:12px;
+}
+
+.search-input{
+
+width:100%;
+height:44px;
 border:none;
-background:rgba(255,255,255,0.96);
-border-radius:12px;
-padding:8px 10px;
-font-size:12px;
-font-weight:800;
-cursor:pointer;
-}
+background:#f3f4f6;
+border-radius:14px;
+padding:0 14px;
+font-size:14px;
+outline:none;
 
-/* 모바일 */
+}
 
 @media (max-width:768px){
 
-.chat-wrap{
-min-height:2200px;
+.messages{
+min-height:180vh;
+padding-bottom:220px;
 }
 
-.chat-area{
-padding-bottom:280px;
-}
-
-.message-content{
-max-width:86%;
-}
-
-.bubble{
-font-size:17px;
-}
-
-.image-bubble img{
-max-width:100%;
+.bubble-area{
+max-width:80%;
 }
 
 }
@@ -469,169 +447,104 @@ max-width:100%;
 
 <div class="background" id="background"></div>
 
-<div class="app">
+<div class="phone">
 
-<div class="chat-wrap">
+<div class="header">
 
-<div class="top-bar">
+<div class="topbar">
 
-<div class="top-row">
+<button class="icon-btn" onclick="toggleSearch()">⌕</button>
 
-<div
-class="room-title"
-id="roomTitle"
->
-HAN YUJIN
+<div class="room-center">
+
+<div class="room-title" id="roomTitle">
+Bubble
 </div>
 
-<div class="right-icons">
-
-<div
-class="icon-btn"
-onclick="toggleSearch()"
->
-⌕
-</div>
-
-<div
-class="icon-btn"
-onclick="toggleMenu()"
->
-⋮
+<div class="room-status">
+D-<span id="dday">0</span>
 </div>
 
 </div>
 
+<button class="icon-btn" onclick="toggleMenu()">⋮</button>
+
 </div>
 
-<div
-class="status-text"
-id="statusText"
->
-bubble 💗 + <span id="ddayText">1</span>
-</div>
-
-<div
-class="search-wrap"
-id="searchWrap"
->
+<div class="search-box" id="searchBox">
 
 <input
 class="search-input"
 id="searchInput"
-placeholder="메시지 검색..."
+placeholder="메시지 검색"
 oninput="runSearch()"
-/>
-
-</div>
-
-</div>
-
-<div
-class="chat-area"
-id="chatArea"
-></div>
-
-</div>
-
-</div>
-
-<!-- 하단 입력 -->
-
-<div
-class="bottom-input"
-id="bottomInput"
-onclick="handleBottomInput()"
 >
 
-<div
-class="fake-input"
-id="bottomText"
->
-메시지 추가하기
 </div>
 
-<div class="bottom-icons">
-☺ ✈
-</div>
+<div class="menu" id="menu">
 
-</div>
-
-<!-- 메뉴 -->
-
-<div
-class="menu-panel"
-id="menuPanel"
->
-
-<button
-class="menu-btn blue"
-onclick="openProfileModal()"
->
+<button onclick="openProfileModal()">
 프로필 설정
 </button>
 
-<button
-class="menu-btn"
-onclick="openGallery()"
->
+<button onclick="openGallery()">
 사진 모아보기
 </button>
 
-<button
-class="menu-btn"
-onclick="openFavorites()"
->
-즐겨찾기 보기
+<button onclick="openFavorites()">
+즐겨찾기
 </button>
 
 </div>
 
-<!-- 프로필 -->
+</div>
 
-<div
-class="overlay"
-id="profileOverlay"
->
+<div class="messages" id="messages"></div>
 
-<div class="modal">
+<div class="bottom-bar">
+
+<div class="fake-input" onclick="openMessageModal()">
+메시지 추가하기
+</div>
+
+<button class="send-btn" onclick="openMessageModal()">
++
+</button>
+
+</div>
+
+</div>
+
+<div class="modal" id="profileModal">
+
+<div class="modal-content">
 
 <div class="modal-title">
 프로필 설정
 </div>
 
 <input class="input" id="roomTitleInput" placeholder="채팅방 이름">
+
 <input class="input" id="artistNameInput" placeholder="아티스트 이름">
-<input class="input" id="ddayInput" placeholder="D-day 숫자">
-<input class="input" id="profileImageInput" placeholder="프로필 이미지 링크">
+
+<input class="input" id="ddayInput" placeholder="디데이 숫자">
+
+<input class="input" id="profileImageInput" placeholder="프로필 사진 링크">
+
 <input class="input" id="backgroundInput" placeholder="배경 이미지 링크">
 
-<button
-class="submit"
-onclick="saveProfile()"
->
-적용하기
-</button>
-
-<button
-class="cancel"
-onclick="closeProfileModal()"
->
-닫기
+<button class="submit" onclick="saveProfile()">
+저장하기
 </button>
 
 </div>
 
 </div>
 
-<!-- 메시지 -->
+<div class="modal" id="messageModal">
 
-<div
-class="overlay"
-id="messageOverlay"
->
-
-<div class="modal">
+<div class="modal-content">
 
 <div class="modal-title">
 메시지 추가
@@ -640,99 +553,49 @@ id="messageOverlay"
 <textarea
 class="textarea"
 id="messageInput"
-placeholder="메시지 입력"
+placeholder="버블 메시지"
 ></textarea>
 
 <input
 class="input"
-id="messageTimeInput"
-placeholder="오후 3:20"
-/>
+id="messageImageInput"
+placeholder="이미지 링크"
+>
 
 <input
 class="input"
-id="messageImageInput"
-placeholder="직접 이미지 링크 (https://i.ibb.co/...)"
-/>
-
-<label style="
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:18px;
-font-weight:700;
-">
-
-<input
-type="checkbox"
-id="artistCheck"
-checked
+id="messageTimeInput"
+placeholder="시간 예시 22:14"
 >
 
-ARTIST 표시
-
+<label style="font-size:14px;display:flex;gap:8px;margin-bottom:16px;">
+<input type="checkbox" id="artistCheck" checked>
+아티스트 메시지
 </label>
 
-<button
-class="submit"
-onclick="addMessage()"
->
-메시지 추가
-</button>
-
-<button
-class="submit done-btn"
-onclick="finishArchive()"
->
-오늘 기록 완료
-</button>
-
-<button
-class="cancel"
-onclick="closeMessageModal()"
->
-닫기
+<button class="submit" onclick="addMessage()">
+추가하기
 </button>
 
 </div>
 
 </div>
 
-<!-- 갤러리 -->
+<div class="modal" id="galleryModal">
 
-<div
-class="overlay"
-id="galleryOverlay"
->
+<div class="modal-content">
 
-<div class="modal">
-
-<div
-class="modal-title"
-id="galleryTitle"
->
+<div class="modal-title">
 사진 모아보기
 </div>
 
-<div
-class="gallery-grid"
-id="galleryGrid"
-></div>
-
-<button
-class="cancel"
-onclick="closeGallery()"
->
-닫기
-</button>
+<div class="gallery" id="gallery"></div>
 
 </div>
 
 </div>
 
 <script>
-
-/* Firebase */
 
 const firebaseConfig = {
 
@@ -741,8 +604,7 @@ authDomain: "bubble-archive.firebaseapp.com",
 projectId: "bubble-archive",
 storageBucket: "bubble-archive.firebasestorage.app",
 messagingSenderId: "527543418806",
-appId: "1:527543418806:web:125dd660b438c7d3224b17",
-measurementId: "G-3QK856857H"
+appId: "1:527543418806:web:125dd660b438c7d3224b17"
 
 };
 
@@ -750,34 +612,27 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-/* archive */
-
 const params =
 new URLSearchParams(location.search);
 
 const archiveId =
 params.get('archive') || 'default';
 
-/* 상태 */
+let profileData = {};
+let messagesData = [];
 
-let messages = [];
+const messages =
+document.getElementById('messages');
 
-let archiveFinished = false;
+db.collection('bubbleProfiles')
+.doc(archiveId)
+.onSnapshot(doc=>{
 
-let profileData = {
+profileData = doc.data() || {};
 
-roomTitle:'HAN YUJIN',
-artistName:'HAN YUJIN',
-dday:'1',
-profileImage:'',
-background:''
+applyProfile();
 
-};
-
-const chatArea =
-document.getElementById('chatArea');
-
-/* 메시지 */
+});
 
 db.collection('bubbleArchives')
 .doc(archiveId)
@@ -785,7 +640,7 @@ db.collection('bubbleArchives')
 .orderBy('createdAt','asc')
 .onSnapshot(snapshot=>{
 
-messages =
+messagesData =
 snapshot.docs.map(doc=>({
 
 id:doc.id,
@@ -793,138 +648,99 @@ id:doc.id,
 
 }));
 
-renderMessages(messages);
-
-});
-
-/* 설정 */
-
-db.collection('bubbleProfiles')
-.doc(archiveId)
-.onSnapshot(doc=>{
-
-if(doc.exists){
-
-profileData = doc.data();
-
-archiveFinished =
-profileData.finished || false;
-
-applyProfile();
-
-}
+renderMessages(messagesData);
 
 });
 
 function applyProfile(){
 
 document.getElementById('roomTitle').innerText =
-profileData.roomTitle || 'HAN YUJIN';
+profileData.roomTitle || 'Bubble';
 
-document.getElementById('ddayText').innerText =
-profileData.dday || '1';
-
-if(profileData.background){
+document.getElementById('dday').innerText =
+profileData.dday || '0';
 
 document.getElementById('background').style.backgroundImage =
-`url(${profileData.background})`;
+`url('${profileData.background || ''}')`;
 
 }
-
-if(archiveFinished){
-
-document
-.getElementById('bottomInput')
-.classList.add('done-mode');
-
-document
-.getElementById('bottomText')
-.innerText = '오늘 기록 완료';
-
-}
-
-}
-
-/* 렌더 */
 
 function renderMessages(list){
 
-chatArea.innerHTML = '';
+messages.innerHTML='';
 
 list.forEach(msg=>{
 
-const div =
+const row =
 document.createElement('div');
 
-div.className = 'message';
+row.className =
+`message-row ${msg.artist ? 'artist-row' : 'me-row'}`;
 
-div.innerHTML = `
+row.innerHTML = `
+
+${msg.artist ? `
 
 <div class="profile">
 
-<img src="${
-profileData.profileImage ||
-'https://i.imgur.com/8Km9tLL.jpg'
-}">
+<img
+src="${(profileData.profileImage || '').trim() || 'https://i.imgur.com/8Km9tLL.jpg'}"
+referrerpolicy="no-referrer"
+crossorigin="anonymous"
+onerror="this.src='https://i.imgur.com/8Km9tLL.jpg'"
+>
 
 </div>
 
-<div class="message-content">
+` : ''}
 
-<div class="name-row">
+<div class="bubble-area">
 
-${
-msg.artist
-? `
-<div class="artist-tag">
+${msg.artist ? `
+
+<div class="artist-label">
 ARTIST
 </div>
-`
-: ''
-}
 
 <div class="artist-name">
-${profileData.artistName || 'HAN YUJIN'}
+${profileData.artistName || 'ARTIST'}
 </div>
 
-</div>
+` : ''}
 
-<div class="
-bubble
-${msg.image ? 'image-bubble' : ''}
-">
+<div class="bubble-wrap">
 
-${
-msg.image
-? `
+<div class="bubble ${msg.artist ? 'artist-bubble' : 'me-bubble'}">
+
+${msg.text ? `
+<div>${msg.text}</div>
+` : ''}
+
+${msg.image ? `
+
 <img
-src="${msg.image}"
+class="bubble-image"
+src="${(msg.image || '').trim()}"
 referrerpolicy="no-referrer"
+crossorigin="anonymous"
 loading="lazy"
+onerror="this.style.display='none'"
 >
-`
-: `
-${msg.text || ''}
-`
-}
+
+` : ''}
 
 </div>
 
-<div class="bottom-row">
-
-<div class="time">
+<div class="message-time">
 ${msg.time || ''}
 </div>
 
-<div
-class="
-favorite-btn
-${msg.favorite ? 'active' : ''}
-"
-onclick="toggleFavorite('${msg.id}')"
+<button
+class="favorite-btn ${msg.favorite ? 'active' : ''}"
+onclick="toggleFavorite('${msg.id}',${msg.favorite})"
 >
 ★
-</div>
+</button>
 
 </div>
 
@@ -932,36 +748,52 @@ onclick="toggleFavorite('${msg.id}')"
 
 `;
 
-chatArea.appendChild(div);
+messages.appendChild(row);
 
 });
 
 }
 
-/* 입력창 */
+async function saveProfile(){
 
-function handleBottomInput(){
+const newData = {
 
-if(archiveFinished){
-return;
+roomTitle:
+document.getElementById('roomTitleInput').value.trim(),
+
+artistName:
+document.getElementById('artistNameInput').value.trim(),
+
+dday:
+document.getElementById('ddayInput').value.trim(),
+
+profileImage:
+document.getElementById('profileImageInput').value.trim(),
+
+background:
+document.getElementById('backgroundInput').value.trim()
+
+};
+
+await db
+.collection('bubbleProfiles')
+.doc(archiveId)
+.set(newData);
+
+closeModal('profileModal');
+
 }
-
-openMessageModal();
-
-}
-
-/* 추가 */
 
 async function addMessage(){
 
 const text =
-document.getElementById('messageInput').value;
-
-const time =
-document.getElementById('messageTimeInput').value;
+document.getElementById('messageInput').value.trim();
 
 const image =
-document.getElementById('messageImageInput').value;
+document.getElementById('messageImageInput').value.trim();
+
+const time =
+document.getElementById('messageTimeInput').value.trim();
 
 const artist =
 document.getElementById('artistCheck').checked;
@@ -980,8 +812,8 @@ await db
 .add({
 
 text,
-time,
 image,
+time,
 artist,
 favorite:false,
 createdAt:Date.now()
@@ -989,35 +821,14 @@ createdAt:Date.now()
 });
 
 document.getElementById('messageInput').value='';
-document.getElementById('messageTimeInput').value='';
 document.getElementById('messageImageInput').value='';
+document.getElementById('messageTimeInput').value='';
+
+closeModal('messageModal');
 
 }
 
-/* 완료 */
-
-async function finishArchive(){
-
-await db
-.collection('bubbleProfiles')
-.doc(archiveId)
-.set({
-
-...profileData,
-finished:true
-
-});
-
-closeMessageModal();
-
-}
-
-/* 즐겨찾기 */
-
-async function toggleFavorite(id){
-
-const target =
-messages.find(m=>m.id===id);
+async function toggleFavorite(id,current){
 
 await db
 .collection('bubbleArchives')
@@ -1026,189 +837,52 @@ await db
 .doc(id)
 .update({
 
-favorite:!target.favorite
+favorite:!current
 
 });
 
 }
-
-/* 검색 */
-
-function toggleSearch(){
-
-const wrap =
-document.getElementById('searchWrap');
-
-const status =
-document.getElementById('statusText');
-
-if(wrap.style.display === 'block'){
-
-wrap.style.display = 'none';
-status.style.display = 'block';
-
-}else{
-
-wrap.style.display = 'block';
-status.style.display = 'none';
-
-}
-
-}
-
-function runSearch(){
-
-const value =
-document.getElementById('searchInput')
-.value
-.toLowerCase()
-.trim();
-
-const filtered =
-messages.filter(msg=>{
-
-return (msg.text || '')
-.toLowerCase()
-.includes(value);
-
-});
-
-renderMessages(filtered);
-
-}
-
-/* 메뉴 */
-
-function toggleMenu(){
-
-const menu =
-document.getElementById('menuPanel');
-
-menu.style.display =
-menu.style.display === 'flex'
-? 'none'
-: 'flex';
-
-}
-
-/* 프로필 */
 
 function openProfileModal(){
 
-document.getElementById('profileOverlay').style.display='flex';
-
-document.getElementById('roomTitleInput').value =
-profileData.roomTitle || '';
-
-document.getElementById('artistNameInput').value =
-profileData.artistName || '';
-
-document.getElementById('ddayInput').value =
-profileData.dday || '';
-
-document.getElementById('profileImageInput').value =
-profileData.profileImage || '';
-
-document.getElementById('backgroundInput').value =
-profileData.background || '';
+document.getElementById('profileModal').style.display='flex';
 
 toggleMenu();
 
 }
 
-function closeProfileModal(){
-
-document.getElementById('profileOverlay').style.display='none';
-
-}
-
-async function saveProfile(){
-
-const newData = {
-
-roomTitle:
-document.getElementById('roomTitleInput').value,
-
-artistName:
-document.getElementById('artistNameInput').value,
-
-dday:
-document.getElementById('ddayInput').value,
-
-profileImage:
-document.getElementById('profileImageInput').value,
-
-background:
-document.getElementById('backgroundInput').value,
-
-finished:archiveFinished
-
-};
-
-await db
-.collection('bubbleProfiles')
-.doc(archiveId)
-.set(newData);
-
-profileData = newData;
-
-applyProfile();
-
-closeProfileModal();
-
-}
-
-/* 메시지 */
-
 function openMessageModal(){
 
-document.getElementById('messageOverlay').style.display='flex';
+document.getElementById('messageModal').style.display='flex';
 
 }
-
-function closeMessageModal(){
-
-document.getElementById('messageOverlay').style.display='none';
-
-}
-
-/* 갤러리 */
 
 function openGallery(){
 
-document.getElementById('galleryOverlay').style.display='flex';
+document.getElementById('galleryModal').style.display='flex';
 
-document.getElementById('galleryTitle').innerText =
-'사진 모아보기';
+const gallery =
+document.getElementById('gallery');
 
-const grid =
-document.getElementById('galleryGrid');
+gallery.innerHTML='';
 
-grid.innerHTML='';
-
-messages
+messagesData
 .filter(msg=>msg.image)
 .forEach(msg=>{
 
-const div =
-document.createElement('div');
+gallery.innerHTML += `
 
-div.className='gallery-item';
-
-div.innerHTML=`
+<a
+href="${msg.image}"
+download
+target="_blank"
+>
 
 <img src="${msg.image}">
 
-<button
-class="download-btn"
-onclick="window.open('${msg.image}','_blank')"
->
-저장
-</button>
+</a>
 
 `;
-
-grid.appendChild(div);
 
 });
 
@@ -1218,58 +892,83 @@ toggleMenu();
 
 function openFavorites(){
 
-document.getElementById('galleryOverlay').style.display='flex';
+const favorites =
+messagesData.filter(msg=>msg.favorite);
 
-document.getElementById('galleryTitle').innerText =
-'즐겨찾기';
-
-const grid =
-document.getElementById('galleryGrid');
-
-grid.innerHTML='';
-
-messages
-.filter(msg=>msg.favorite)
-.forEach(msg=>{
-
-const div =
-document.createElement('div');
-
-div.className='gallery-item';
-
-div.innerHTML = msg.image
-? `
-<img src="${msg.image}">
-`
-: `
-<div style="
-background:white;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:18px;
-font-size:15px;
-line-height:1.6;
-text-align:center;
-">
-${msg.text}
-</div>
-`;
-
-grid.appendChild(div);
-
-});
+renderMessages(favorites);
 
 toggleMenu();
 
 }
 
-function closeGallery(){
+function toggleMenu(){
 
-document.getElementById('galleryOverlay').style.display='none';
+const menu =
+document.getElementById('menu');
+
+menu.style.display =
+menu.style.display === 'flex'
+? 'none'
+: 'flex';
 
 }
+
+function toggleSearch(){
+
+const box =
+document.getElementById('searchBox');
+
+box.style.display =
+box.style.display === 'block'
+? 'none'
+: 'block';
+
+}
+
+function runSearch(){
+
+const value =
+document
+.getElementById('searchInput')
+.value
+.toLowerCase()
+.trim();
+
+const filtered =
+messagesData.filter(msg=>{
+
+return `
+${msg.text}
+${msg.time}
+`
+.toLowerCase()
+.includes(value);
+
+});
+
+renderMessages(filtered);
+
+}
+
+function closeModal(id){
+
+document.getElementById(id).style.display='none';
+
+}
+
+document.querySelectorAll('.modal').forEach(modal=>{
+
+modal.addEventListener('click',e=>{
+
+if(e.target === modal){
+
+modal.style.display='none';
+
+}
+
+});
+
+});
 
 </script>
 
