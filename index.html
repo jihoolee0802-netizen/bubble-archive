@@ -24,11 +24,10 @@ box-sizing:border-box;
 
 body{
 font-family:'Pretendard',sans-serif;
-background:#dfeef7;
-min-height:100vh;
+background:#dcecf7;
 display:flex;
 justify-content:center;
-padding:0;
+min-height:100vh;
 overflow-x:hidden;
 }
 
@@ -48,39 +47,43 @@ background:rgba(255,255,255,0.35);
 backdrop-filter:blur(8px);
 }
 
-.phone{
-
+.app{
 width:100%;
-max-width:700px;
-min-height:100vh;
+max-width:720px;
+min-height:220vh;
 background:white;
-display:flex;
-flex-direction:column;
 position:relative;
 overflow:hidden;
-
+display:flex;
+flex-direction:column;
 }
 
 .header{
-
-padding:18px 18px 10px;
-background:white;
-border-bottom:1px solid #edf2f7;
 position:sticky;
 top:0;
-z-index:100;
-
+z-index:50;
+background:white;
+padding:14px 18px 12px;
+border-bottom:1px solid #eef2f6;
 }
 
-.topbar{
-
+.header-top{
 display:flex;
 align-items:center;
 justify-content:space-between;
-
 }
 
-.room-center{
+.icon-btn{
+width:34px;
+height:34px;
+border:none;
+background:none;
+font-size:20px;
+cursor:pointer;
+color:#111;
+}
+
+.header-center{
 flex:1;
 text-align:center;
 }
@@ -92,39 +95,64 @@ color:#111;
 }
 
 .room-status{
-margin-top:4px;
 font-size:12px;
 color:#111;
+margin-top:4px;
 }
 
-.icon-btn{
+.search-wrap{
+display:none;
+margin-top:12px;
+}
 
-width:36px;
-height:36px;
+.search-input{
+width:100%;
+height:44px;
 border:none;
-background:none;
-font-size:22px;
-cursor:pointer;
-color:#111;
-
+background:#f3f5f7;
+border-radius:14px;
+padding:0 14px;
+font-size:14px;
+outline:none;
 }
 
-.messages{
+.menu{
+position:absolute;
+top:62px;
+right:16px;
+background:white;
+border-radius:18px;
+padding:10px;
+box-shadow:0 12px 30px rgba(0,0,0,0.12);
+display:none;
+flex-direction:column;
+gap:8px;
+z-index:999;
+}
 
-padding:24px 14px 180px;
+.menu button{
+height:42px;
+border:none;
+background:#f3f5f7;
+padding:0 16px;
+border-radius:12px;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+}
+
+.chat{
+padding:22px 14px 220px;
 display:flex;
 flex-direction:column;
 gap:18px;
-min-height:150vh;
-
+min-height:180vh;
 }
 
 .message-row{
-
 display:flex;
 align-items:flex-end;
 gap:8px;
-
 }
 
 .artist-row{
@@ -136,35 +164,29 @@ justify-content:flex-end;
 }
 
 .profile{
-
-width:42px;
-height:42px;
+width:40px;
+height:40px;
 border-radius:50%;
 overflow:hidden;
 flex-shrink:0;
-border:1px solid #e5e7eb;
-background:#f3f4f6;
-
+background:#eee;
 }
 
 .profile img{
-
 width:100%;
 height:100%;
 object-fit:cover;
 display:block;
-
 }
 
 .bubble-area{
-max-width:72%;
 display:flex;
 flex-direction:column;
-gap:5px;
+max-width:76%;
 }
 
-.artist-label{
-font-size:11px;
+.artist-small{
+font-size:10px;
 font-weight:700;
 color:#9ca3af;
 margin-left:6px;
@@ -174,182 +196,159 @@ letter-spacing:0.04em;
 .artist-name{
 font-size:14px;
 font-weight:700;
-color:#111;
 margin-left:6px;
 margin-top:2px;
+margin-bottom:5px;
+color:#111;
 }
 
-.bubble-wrap{
+.bubble-line{
 display:flex;
 align-items:flex-end;
 gap:6px;
 }
 
 .bubble{
-
 padding:12px 14px;
-border-radius:18px;
 font-size:15px;
-line-height:1.5;
+line-height:1.55;
 word-break:break-word;
 position:relative;
-
 }
 
 .artist-bubble{
-background:#f5f7fa;
+background:#f4f6f8;
+border-radius:8px 20px 20px 20px;
 color:#111;
-border-top-left-radius:6px;
 }
 
 .me-bubble{
 background:#9ec4e8;
+border-radius:20px 8px 20px 20px;
 color:white;
-border-top-right-radius:6px;
-}
-
-.message-time{
-font-size:11px;
-color:#6b7280;
-margin-bottom:3px;
-white-space:nowrap;
 }
 
 .bubble-image{
-
 width:100%;
-border-radius:16px;
 display:block;
-margin-top:2px;
-
+border-radius:14px;
+margin-top:4px;
 }
 
-.favorite-btn{
+.time{
+font-size:11px;
+color:#6b7280;
+margin-bottom:4px;
+white-space:nowrap;
+}
 
+.favorite{
 border:none;
 background:none;
 font-size:18px;
 cursor:pointer;
-padding:2px;
-color:#b6d2ea;
+color:#d4e4f2;
+padding-bottom:2px;
 flex-shrink:0;
-
 }
 
-.favorite-btn.active{
+.favorite.active{
 color:#9ec4e8;
 }
 
-.bottom-bar{
-
+.bottom{
 position:fixed;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
 width:100%;
-max-width:700px;
-padding:14px;
+max-width:720px;
 background:white;
-border-top:1px solid #edf2f7;
+border-top:1px solid #eef2f6;
+padding:14px;
 display:flex;
 gap:10px;
-z-index:200;
-
+z-index:100;
 }
 
 .fake-input{
-
 flex:1;
 height:52px;
 border-radius:999px;
-background:#f3f4f6;
+background:#f3f5f7;
 display:flex;
 align-items:center;
 padding:0 18px;
 font-size:14px;
 color:#9ca3af;
 cursor:pointer;
-
 }
 
-.send-btn{
-
+.plus{
 width:52px;
 height:52px;
 border:none;
 border-radius:50%;
 background:#9ec4e8;
 color:white;
-font-size:20px;
+font-size:22px;
 cursor:pointer;
-
 }
 
 .modal{
-
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.35);
 display:none;
 justify-content:center;
 align-items:flex-end;
-z-index:999;
-
+z-index:9999;
 }
 
 .modal-content{
-
 width:100%;
-max-width:700px;
+max-width:720px;
 background:white;
 border-radius:28px 28px 0 0;
 padding:24px 18px 40px;
 max-height:88vh;
 overflow:auto;
-
 }
 
 .modal-title{
-
 font-size:22px;
 font-weight:700;
 margin-bottom:18px;
-
 }
 
 .input{
-
 width:100%;
 height:52px;
 border:none;
-background:#f3f4f6;
+background:#f3f5f7;
 border-radius:16px;
 padding:0 16px;
 margin-bottom:12px;
 font-size:14px;
-font-family:'Pretendard',sans-serif;
 outline:none;
-
+font-family:'Pretendard',sans-serif;
 }
 
 .textarea{
-
 width:100%;
-height:120px;
+height:130px;
 border:none;
-background:#f3f4f6;
+background:#f3f5f7;
 border-radius:16px;
 padding:16px;
 margin-bottom:12px;
 font-size:14px;
-font-family:'Pretendard',sans-serif;
 outline:none;
 resize:none;
-
+font-family:'Pretendard',sans-serif;
 }
 
 .submit{
-
 width:100%;
 height:54px;
 border:none;
@@ -359,82 +358,31 @@ color:white;
 font-size:16px;
 font-weight:700;
 cursor:pointer;
-
-}
-
-.menu{
-
-position:absolute;
-top:62px;
-right:18px;
-background:white;
-border-radius:18px;
-padding:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.12);
-display:none;
-flex-direction:column;
-gap:8px;
-z-index:999;
-
-}
-
-.menu button{
-
-border:none;
-background:#f3f4f6;
-height:42px;
-padding:0 16px;
-border-radius:12px;
-font-size:14px;
-font-weight:600;
-cursor:pointer;
-
 }
 
 .gallery{
-
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px;
-
 }
 
 .gallery img{
-
 width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
 border-radius:16px;
-
-}
-
-.search-box{
-display:none;
-margin-top:12px;
-}
-
-.search-input{
-
-width:100%;
-height:44px;
-border:none;
-background:#f3f4f6;
-border-radius:14px;
-padding:0 14px;
-font-size:14px;
-outline:none;
-
+display:block;
 }
 
 @media (max-width:768px){
 
-.messages{
-min-height:180vh;
-padding-bottom:220px;
+.chat{
+min-height:220vh;
+padding-bottom:240px;
 }
 
 .bubble-area{
-max-width:80%;
+max-width:82%;
 }
 
 }
@@ -447,15 +395,15 @@ max-width:80%;
 
 <div class="background" id="background"></div>
 
-<div class="phone">
+<div class="app">
 
 <div class="header">
 
-<div class="topbar">
+<div class="header-top">
 
 <button class="icon-btn" onclick="toggleSearch()">⌕</button>
 
-<div class="room-center">
+<div class="header-center">
 
 <div class="room-title" id="roomTitle">
 Bubble
@@ -471,7 +419,7 @@ D-<span id="dday">0</span>
 
 </div>
 
-<div class="search-box" id="searchBox">
+<div class="search-wrap" id="searchWrap">
 
 <input
 class="search-input"
@@ -500,21 +448,23 @@ oninput="runSearch()"
 
 </div>
 
-<div class="messages" id="messages"></div>
+<div class="chat" id="chat"></div>
 
-<div class="bottom-bar">
+<div class="bottom">
 
 <div class="fake-input" onclick="openMessageModal()">
 메시지 추가하기
 </div>
 
-<button class="send-btn" onclick="openMessageModal()">
+<button class="plus" onclick="openMessageModal()">
 +
 </button>
 
 </div>
 
 </div>
+
+<!-- 프로필 -->
 
 <div class="modal" id="profileModal">
 
@@ -542,6 +492,8 @@ oninput="runSearch()"
 
 </div>
 
+<!-- 메시지 -->
+
 <div class="modal" id="messageModal">
 
 <div class="modal-content">
@@ -568,9 +520,12 @@ id="messageTimeInput"
 placeholder="시간 예시 22:14"
 >
 
-<label style="font-size:14px;display:flex;gap:8px;margin-bottom:16px;">
+<label style="display:flex;gap:8px;font-size:14px;margin-bottom:16px;">
+
 <input type="checkbox" id="artistCheck" checked>
+
 아티스트 메시지
+
 </label>
 
 <button class="submit" onclick="addMessage()">
@@ -581,6 +536,8 @@ placeholder="시간 예시 22:14"
 
 </div>
 
+<!-- 갤러리 -->
+
 <div class="modal" id="galleryModal">
 
 <div class="modal-content">
@@ -590,6 +547,22 @@ placeholder="시간 예시 22:14"
 </div>
 
 <div class="gallery" id="gallery"></div>
+
+</div>
+
+</div>
+
+<!-- 즐겨찾기 -->
+
+<div class="modal" id="favoriteModal">
+
+<div class="modal-content">
+
+<div class="modal-title">
+즐겨찾기
+</div>
+
+<div id="favoriteList"></div>
 
 </div>
 
@@ -621,8 +594,8 @@ params.get('archive') || 'default';
 let profileData = {};
 let messagesData = [];
 
-const messages =
-document.getElementById('messages');
+const chat =
+document.getElementById('chat');
 
 db.collection('bubbleProfiles')
 .doc(archiveId)
@@ -667,7 +640,7 @@ document.getElementById('background').style.backgroundImage =
 
 function renderMessages(list){
 
-messages.innerHTML='';
+chat.innerHTML='';
 
 list.forEach(msg=>{
 
@@ -698,7 +671,7 @@ onerror="this.src='https://i.imgur.com/8Km9tLL.jpg'"
 
 ${msg.artist ? `
 
-<div class="artist-label">
+<div class="artist-small">
 ARTIST
 </div>
 
@@ -708,7 +681,7 @@ ${profileData.artistName || 'ARTIST'}
 
 ` : ''}
 
-<div class="bubble-wrap">
+<div class="bubble-line">
 
 <div class="bubble ${msg.artist ? 'artist-bubble' : 'me-bubble'}">
 
@@ -720,10 +693,10 @@ ${msg.image ? `
 
 <img
 class="bubble-image"
-src="${(msg.image || '').trim()}"
+src="${msg.image}"
+loading="lazy"
 referrerpolicy="no-referrer"
 crossorigin="anonymous"
-loading="lazy"
 onerror="this.style.display='none'"
 >
 
@@ -731,12 +704,12 @@ onerror="this.style.display='none'"
 
 </div>
 
-<div class="message-time">
+<div class="time">
 ${msg.time || ''}
 </div>
 
 <button
-class="favorite-btn ${msg.favorite ? 'active' : ''}"
+class="favorite ${msg.favorite ? 'active' : ''}"
 onclick="toggleFavorite('${msg.id}',${msg.favorite})"
 >
 ★
@@ -748,7 +721,7 @@ onclick="toggleFavorite('${msg.id}',${msg.favorite})"
 
 `;
 
-messages.appendChild(row);
+chat.appendChild(row);
 
 });
 
@@ -756,7 +729,10 @@ messages.appendChild(row);
 
 async function saveProfile(){
 
-const newData = {
+await db
+.collection('bubbleProfiles')
+.doc(archiveId)
+.set({
 
 roomTitle:
 document.getElementById('roomTitleInput').value.trim(),
@@ -773,12 +749,7 @@ document.getElementById('profileImageInput').value.trim(),
 background:
 document.getElementById('backgroundInput').value.trim()
 
-};
-
-await db
-.collection('bubbleProfiles')
-.doc(archiveId)
-.set(newData);
+});
 
 closeModal('profileModal');
 
@@ -843,20 +814,6 @@ favorite:!current
 
 }
 
-function openProfileModal(){
-
-document.getElementById('profileModal').style.display='flex';
-
-toggleMenu();
-
-}
-
-function openMessageModal(){
-
-document.getElementById('messageModal').style.display='flex';
-
-}
-
 function openGallery(){
 
 document.getElementById('galleryModal').style.display='flex';
@@ -872,11 +829,7 @@ messagesData
 
 gallery.innerHTML += `
 
-<a
-href="${msg.image}"
-download
-target="_blank"
->
+<a href="${msg.image}" target="_blank">
 
 <img src="${msg.image}">
 
@@ -892,12 +845,107 @@ toggleMenu();
 
 function openFavorites(){
 
+document.getElementById('favoriteModal').style.display='flex';
+
+const list =
+document.getElementById('favoriteList');
+
+list.innerHTML='';
+
 const favorites =
 messagesData.filter(msg=>msg.favorite);
 
-renderMessages(favorites);
+if(favorites.length === 0){
+
+list.innerHTML = `
+<div style="color:#9ca3af;font-size:14px;">
+즐겨찾기한 메시지가 없어!
+</div>
+`;
+
+return;
+
+}
+
+favorites.forEach(msg=>{
+
+list.innerHTML += `
+
+<div style="
+background:#f4f6f8;
+border-radius:18px;
+padding:14px;
+margin-bottom:10px;
+font-size:14px;
+line-height:1.5;
+">
+
+${msg.text || ''}
+
+${msg.image ? `
+
+<img
+src="${msg.image}"
+style="
+width:100%;
+border-radius:14px;
+margin-top:8px;
+"
+>
+
+` : ''}
+
+</div>
+
+`;
+
+});
 
 toggleMenu();
+
+}
+
+function toggleSearch(){
+
+const wrap =
+document.getElementById('searchWrap');
+
+wrap.style.display =
+wrap.style.display === 'block'
+? 'none'
+: 'block';
+
+}
+
+function runSearch(){
+
+const value =
+document
+.getElementById('searchInput')
+.value
+.toLowerCase()
+.trim();
+
+if(value === ''){
+
+renderMessages(messagesData);
+return;
+
+}
+
+const filtered =
+messagesData.filter(msg=>{
+
+return `
+${msg.text}
+${msg.time}
+`
+.toLowerCase()
+.includes(value);
+
+});
+
+renderMessages(filtered);
 
 }
 
@@ -913,40 +961,17 @@ menu.style.display === 'flex'
 
 }
 
-function toggleSearch(){
+function openProfileModal(){
 
-const box =
-document.getElementById('searchBox');
+document.getElementById('profileModal').style.display='flex';
 
-box.style.display =
-box.style.display === 'block'
-? 'none'
-: 'block';
+toggleMenu();
 
 }
 
-function runSearch(){
+function openMessageModal(){
 
-const value =
-document
-.getElementById('searchInput')
-.value
-.toLowerCase()
-.trim();
-
-const filtered =
-messagesData.filter(msg=>{
-
-return `
-${msg.text}
-${msg.time}
-`
-.toLowerCase()
-.includes(value);
-
-});
-
-renderMessages(filtered);
+document.getElementById('messageModal').style.display='flex';
 
 }
 
@@ -974,4 +999,3 @@ modal.style.display='none';
 
 </body>
 </html>
-
