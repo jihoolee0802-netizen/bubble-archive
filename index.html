@@ -33,7 +33,6 @@ overflow-x:hidden;
 
 body{
 position:relative;
-padding:0;
 }
 
 .background{
@@ -47,19 +46,15 @@ z-index:-1;
 
 .app{
 width:100%;
-min-height:100vh;
 display:flex;
 justify-content:center;
-padding:0;
 }
 
 .chat-wrap{
 width:100%;
-max-width:920px;
-min-height:100vh;
+max-width:980px;
+min-height:1800px;
 background:#ECECEC;
-display:flex;
-flex-direction:column;
 position:relative;
 }
 
@@ -70,31 +65,24 @@ position:sticky;
 top:0;
 z-index:100;
 background:white;
-padding:20px 20px 16px;
+padding:22px 20px 18px;
 border-bottom:1px solid #EFEFEF;
 }
 
 .top-row{
 position:relative;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 height:34px;
 }
 
 .room-title{
-font-size:21px;
+font-size:22px;
 font-weight:800;
 letter-spacing:-0.03em;
 color:#111;
-}
-
-.left-icons{
-position:absolute;
-left:0;
-display:flex;
-align-items:center;
-gap:14px;
+text-align:center;
 }
 
 .right-icons{
@@ -102,7 +90,7 @@ position:absolute;
 right:0;
 display:flex;
 align-items:center;
-gap:16px;
+gap:18px;
 }
 
 .icon-btn{
@@ -113,20 +101,20 @@ user-select:none;
 
 .status-text{
 margin-top:10px;
+text-align:center;
 font-size:14px;
 font-weight:700;
-text-align:center;
 color:#111;
 }
 
 .search-wrap{
 display:none;
-margin-top:12px;
+margin-top:14px;
 }
 
 .search-input{
 width:100%;
-height:48px;
+height:50px;
 border:none;
 outline:none;
 background:#F5F5F5;
@@ -139,16 +127,14 @@ font-family:'Pretendard',sans-serif;
 /* 채팅 */
 
 .chat-area{
-flex:1;
-padding:24px 18px 260px;
-overflow:visible;
+padding:26px 16px 260px;
 }
 
 .message{
 display:flex;
 gap:12px;
 align-items:flex-start;
-margin-bottom:34px;
+margin-bottom:36px;
 }
 
 .profile{
@@ -181,10 +167,10 @@ margin-bottom:8px;
 .artist-tag{
 background:#FF8B38;
 color:white;
-font-size:11px;
-font-weight:800;
 padding:4px 8px;
 border-radius:8px;
+font-size:11px;
+font-weight:800;
 line-height:1;
 }
 
@@ -192,18 +178,6 @@ line-height:1;
 font-size:15px;
 font-weight:800;
 color:#111;
-}
-
-.bubble-row{
-display:flex;
-align-items:flex-end;
-gap:8px;
-}
-
-.bubble-wrap{
-display:flex;
-flex-direction:column;
-gap:8px;
 }
 
 .bubble{
@@ -215,7 +189,6 @@ line-height:1.55;
 color:#111;
 word-break:break-word;
 box-shadow:0 3px 14px rgba(0,0,0,0.04);
-max-width:100%;
 }
 
 .image-bubble{
@@ -236,6 +209,7 @@ border-radius:28px;
 display:flex;
 align-items:center;
 gap:8px;
+margin-top:8px;
 padding-left:6px;
 }
 
@@ -252,10 +226,10 @@ border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
+background:#F2F2F2;
 font-size:15px;
 cursor:pointer;
-background:#F3F3F3;
-transition:0.15s;
+flex-shrink:0;
 }
 
 .favorite-btn.active{
@@ -263,7 +237,7 @@ background:#BFE8FF;
 color:#2478A9;
 }
 
-/* 입력창 */
+/* 하단 */
 
 .bottom-input{
 position:fixed;
@@ -271,14 +245,14 @@ left:50%;
 transform:translateX(-50%);
 bottom:18px;
 width:calc(100% - 24px);
-max-width:880px;
-height:76px;
+max-width:930px;
+height:78px;
 border-radius:999px;
 background:#F8F8F8;
 display:flex;
 align-items:center;
 padding:0 24px;
-box-shadow:0 8px 26px rgba(0,0,0,0.08);
+box-shadow:0 10px 28px rgba(0,0,0,0.08);
 z-index:200;
 cursor:pointer;
 }
@@ -294,6 +268,11 @@ color:#B7B7B7;
 display:flex;
 gap:14px;
 font-size:28px;
+}
+
+.done-mode{
+background:#EDEDED;
+cursor:default;
 }
 
 /* 메뉴 */
@@ -401,6 +380,12 @@ font-size:16px;
 font-weight:800;
 font-family:'Pretendard',sans-serif;
 cursor:pointer;
+margin-bottom:10px;
+}
+
+.done-btn{
+background:#111;
+color:white;
 }
 
 .cancel{
@@ -413,7 +398,6 @@ font-size:15px;
 font-weight:700;
 font-family:'Pretendard',sans-serif;
 cursor:pointer;
-margin-top:10px;
 }
 
 /* 갤러리 */
@@ -451,12 +435,16 @@ font-weight:800;
 cursor:pointer;
 }
 
-/* 반응형 */
+/* 모바일 */
 
 @media (max-width:768px){
 
+.chat-wrap{
+min-height:2200px;
+}
+
 .chat-area{
-padding:20px 14px 240px;
+padding-bottom:280px;
 }
 
 .message-content{
@@ -471,10 +459,6 @@ font-size:17px;
 max-width:100%;
 }
 
-.bottom-input{
-height:72px;
-}
-
 }
 
 </style>
@@ -483,22 +467,15 @@ height:72px;
 
 <body>
 
-<div
-class="background"
-id="background"
-></div>
+<div class="background" id="background"></div>
 
 <div class="app">
 
 <div class="chat-wrap">
 
-<!-- 상단 -->
-
 <div class="top-bar">
 
 <div class="top-row">
-
-<div class="left-icons"></div>
 
 <div
 class="room-title"
@@ -550,8 +527,6 @@ oninput="runSearch()"
 
 </div>
 
-<!-- 채팅 -->
-
 <div
 class="chat-area"
 id="chatArea"
@@ -561,14 +536,18 @@ id="chatArea"
 
 </div>
 
-<!-- 입력창 -->
+<!-- 하단 입력 -->
 
 <div
 class="bottom-input"
-onclick="openMessageModal()"
+id="bottomInput"
+onclick="handleBottomInput()"
 >
 
-<div class="fake-input">
+<div
+class="fake-input"
+id="bottomText"
+>
 메시지 추가하기
 </div>
 
@@ -621,35 +600,11 @@ id="profileOverlay"
 프로필 설정
 </div>
 
-<input
-class="input"
-id="roomTitleInput"
-placeholder="채팅방 이름"
-/>
-
-<input
-class="input"
-id="artistNameInput"
-placeholder="아티스트 이름"
-/>
-
-<input
-class="input"
-id="ddayInput"
-placeholder="D-day 숫자"
-/>
-
-<input
-class="input"
-id="profileImageInput"
-placeholder="프로필 이미지 링크"
-/>
-
-<input
-class="input"
-id="backgroundInput"
-placeholder="배경 이미지 링크"
-/>
+<input class="input" id="roomTitleInput" placeholder="채팅방 이름">
+<input class="input" id="artistNameInput" placeholder="아티스트 이름">
+<input class="input" id="ddayInput" placeholder="D-day 숫자">
+<input class="input" id="profileImageInput" placeholder="프로필 이미지 링크">
+<input class="input" id="backgroundInput" placeholder="배경 이미지 링크">
 
 <button
 class="submit"
@@ -669,7 +624,7 @@ onclick="closeProfileModal()"
 
 </div>
 
-<!-- 메시지 추가 -->
+<!-- 메시지 -->
 
 <div
 class="overlay"
@@ -697,7 +652,7 @@ placeholder="오후 3:20"
 <input
 class="input"
 id="messageImageInput"
-placeholder="이미지 직접 링크 (https://i.ibb.co/...)"
+placeholder="직접 이미지 링크 (https://i.ibb.co/...)"
 />
 
 <label style="
@@ -723,6 +678,13 @@ class="submit"
 onclick="addMessage()"
 >
 메시지 추가
+</button>
+
+<button
+class="submit done-btn"
+onclick="finishArchive()"
+>
+오늘 기록 완료
 </button>
 
 <button
@@ -800,6 +762,8 @@ params.get('archive') || 'default';
 
 let messages = [];
 
+let archiveFinished = false;
+
 let profileData = {
 
 roomTitle:'HAN YUJIN',
@@ -833,7 +797,7 @@ renderMessages(messages);
 
 });
 
-/* 프로필 */
+/* 설정 */
 
 db.collection('bubbleProfiles')
 .doc(archiveId)
@@ -842,6 +806,9 @@ db.collection('bubbleProfiles')
 if(doc.exists){
 
 profileData = doc.data();
+
+archiveFinished =
+profileData.finished || false;
 
 applyProfile();
 
@@ -861,6 +828,18 @@ if(profileData.background){
 
 document.getElementById('background').style.backgroundImage =
 `url(${profileData.background})`;
+
+}
+
+if(archiveFinished){
+
+document
+.getElementById('bottomInput')
+.classList.add('done-mode');
+
+document
+.getElementById('bottomText')
+.innerText = '오늘 기록 완료';
 
 }
 
@@ -910,10 +889,6 @@ ${profileData.artistName || 'HAN YUJIN'}
 
 </div>
 
-<div class="bubble-row">
-
-<div class="bubble-wrap">
-
 <div class="
 bubble
 ${msg.image ? 'image-bubble' : ''}
@@ -924,8 +899,8 @@ msg.image
 ? `
 <img
 src="${msg.image}"
-loading="lazy"
 referrerpolicy="no-referrer"
+loading="lazy"
 >
 `
 : `
@@ -955,15 +930,23 @@ onclick="toggleFavorite('${msg.id}')"
 
 </div>
 
-</div>
-
-</div>
-
 `;
 
 chatArea.appendChild(div);
 
 });
+
+}
+
+/* 입력창 */
+
+function handleBottomInput(){
+
+if(archiveFinished){
+return;
+}
+
+openMessageModal();
 
 }
 
@@ -1005,11 +988,27 @@ createdAt:Date.now()
 
 });
 
-closeMessageModal();
-
 document.getElementById('messageInput').value='';
 document.getElementById('messageTimeInput').value='';
 document.getElementById('messageImageInput').value='';
+
+}
+
+/* 완료 */
+
+async function finishArchive(){
+
+await db
+.collection('bubbleProfiles')
+.doc(archiveId)
+.set({
+
+...profileData,
+finished:true
+
+});
+
+closeMessageModal();
 
 }
 
@@ -1098,6 +1097,21 @@ function openProfileModal(){
 
 document.getElementById('profileOverlay').style.display='flex';
 
+document.getElementById('roomTitleInput').value =
+profileData.roomTitle || '';
+
+document.getElementById('artistNameInput').value =
+profileData.artistName || '';
+
+document.getElementById('ddayInput').value =
+profileData.dday || '';
+
+document.getElementById('profileImageInput').value =
+profileData.profileImage || '';
+
+document.getElementById('backgroundInput').value =
+profileData.background || '';
+
 toggleMenu();
 
 }
@@ -1110,10 +1124,7 @@ document.getElementById('profileOverlay').style.display='none';
 
 async function saveProfile(){
 
-await db
-.collection('bubbleProfiles')
-.doc(archiveId)
-.set({
+const newData = {
 
 roomTitle:
 document.getElementById('roomTitleInput').value,
@@ -1128,9 +1139,20 @@ profileImage:
 document.getElementById('profileImageInput').value,
 
 background:
-document.getElementById('backgroundInput').value
+document.getElementById('backgroundInput').value,
 
-});
+finished:archiveFinished
+
+};
+
+await db
+.collection('bubbleProfiles')
+.doc(archiveId)
+.set(newData);
+
+profileData = newData;
+
+applyProfile();
 
 closeProfileModal();
 
