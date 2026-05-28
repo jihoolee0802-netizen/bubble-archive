@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 
@@ -8,7 +8,7 @@
 <title>Bubble Archive</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -24,11 +24,11 @@ box-sizing:border-box;
 
 body{
 font-family:'Pretendard',sans-serif;
-background:#dbeaf4;
+background:#e9edf2;
 display:flex;
 justify-content:center;
-overflow-x:hidden;
 min-height:100vh;
+overflow-x:hidden;
 }
 
 .background{
@@ -43,28 +43,27 @@ z-index:-2;
 content:'';
 position:absolute;
 inset:0;
-background:rgba(255,255,255,0.42);
-backdrop-filter:blur(10px);
+background:rgba(255,255,255,0.52);
+backdrop-filter:blur(8px);
 }
 
 .app{
 width:100%;
-max-width:760px;
-background:white;
-min-height:420vh;
+max-width:430px;
+background:#f6f6f6;
+min-height:720vh;
 position:relative;
 overflow:hidden;
-display:flex;
-flex-direction:column;
+box-shadow:0 0 30px rgba(0,0,0,0.08);
 }
 
 .header{
 position:sticky;
 top:0;
+background:#ffffff;
+padding:16px 16px 14px;
 z-index:100;
-background:white;
-padding:12px 18px 10px;
-border-bottom:1px solid #eef2f6;
+border-bottom:1px solid #ececec;
 }
 
 .header-top{
@@ -73,12 +72,12 @@ align-items:center;
 justify-content:space-between;
 }
 
-.icon-btn{
+.header-btn{
 width:34px;
 height:34px;
 border:none;
 background:none;
-font-size:21px;
+font-size:22px;
 cursor:pointer;
 color:#111;
 }
@@ -89,65 +88,42 @@ text-align:center;
 }
 
 .room-title{
-font-size:17px;
+font-size:20px;
 font-weight:700;
 color:#111;
-line-height:1.2;
+letter-spacing:-0.02em;
 }
 
 .room-status{
-margin-top:4px;
-font-size:11px;
+margin-top:10px;
+font-size:13px;
+font-weight:600;
 color:#111;
 }
 
-.search-wrap{
+.search-area{
 display:none;
-margin-top:12px;
+margin-top:14px;
 }
 
 .search-input{
 width:100%;
 height:44px;
 border:none;
-background:#f4f6f8;
+background:#f1f3f5;
 border-radius:14px;
-padding:0 14px;
-font-size:14px;
-outline:none;
-}
-
-.menu{
-position:absolute;
-top:58px;
-right:16px;
-background:white;
-border-radius:18px;
-padding:10px;
-display:none;
-flex-direction:column;
-gap:8px;
-box-shadow:0 12px 30px rgba(0,0,0,0.12);
-z-index:999;
-}
-
-.menu button{
-height:42px;
-border:none;
-background:#f4f6f8;
-border-radius:12px;
 padding:0 16px;
 font-size:14px;
-font-weight:600;
-cursor:pointer;
+outline:none;
+font-family:'Pretendard',sans-serif;
 }
 
 .chat{
-padding:22px 14px 240px;
+padding:18px 12px 180px;
 display:flex;
 flex-direction:column;
 gap:18px;
-min-height:400vh;
+min-height:700vh;
 }
 
 .message-row{
@@ -156,22 +132,14 @@ align-items:flex-end;
 gap:8px;
 }
 
-.artist-row{
-justify-content:flex-start;
-}
-
-.me-row{
-justify-content:flex-end;
-}
-
 .profile{
-width:38px;
-height:38px;
+width:36px;
+height:36px;
 border-radius:50%;
 overflow:hidden;
 flex-shrink:0;
-background:#eee;
-margin-bottom:2px;
+border:2px solid #ff7b2f;
+background:#ddd;
 }
 
 .profile img{
@@ -181,81 +149,87 @@ object-fit:cover;
 display:block;
 }
 
-.bubble-area{
-max-width:78%;
+.bubble-wrap{
 display:flex;
 flex-direction:column;
+max-width:72%;
 }
 
-.artist-small{
+.artist-top{
+display:flex;
+align-items:center;
+gap:5px;
+margin-left:4px;
+margin-bottom:5px;
+}
+
+.artist-badge{
+background:#ff7b2f;
+color:white;
 font-size:10px;
 font-weight:700;
-letter-spacing:0.05em;
-color:#a3a8af;
-margin-left:6px;
+padding:2px 6px;
+border-radius:5px;
 }
 
 .artist-name{
 font-size:14px;
 font-weight:700;
 color:#111;
-margin-left:6px;
-margin-top:2px;
-margin-bottom:6px;
 }
 
 .bubble-line{
 display:flex;
 align-items:flex-end;
-gap:5px;
+gap:6px;
 }
 
 .bubble{
-padding:12px 14px;
+padding:13px 15px;
 font-size:15px;
-line-height:1.55;
+line-height:1.5;
 word-break:break-word;
 position:relative;
 }
 
 .artist-bubble{
-background:#f3f5f7;
+background:white;
+border-radius:6px 18px 18px 18px;
 color:#111;
-border-radius:8px 20px 20px 20px;
 }
 
 .me-bubble{
 background:#9ec4e8;
 color:white;
-border-radius:20px 8px 20px 20px;
-}
-
-.time{
-font-size:10px;
-color:#8d949d;
-margin-bottom:4px;
-white-space:nowrap;
-}
-
-.favorite{
-border:none;
-background:none;
-font-size:17px;
-cursor:pointer;
-color:#d8e7f3;
-padding-bottom:1px;
-flex-shrink:0;
-}
-
-.favorite.active{
-color:#9ec4e8;
+border-radius:18px 6px 18px 18px;
 }
 
 .bubble-image{
 width:100%;
 display:block;
-border-radius:14px;
-margin-top:4px;
+border-radius:16px;
+margin-top:5px;
+}
+
+.time{
+font-size:11px;
+color:#9aa1ab;
+white-space:nowrap;
+margin-bottom:4px;
+}
+
+.favorite-btn{
+border:none;
+background:none;
+font-size:16px;
+cursor:pointer;
+color:#d3dce5;
+margin-left:3px;
+margin-bottom:3px;
+}
+
+.favorite-btn.active{
+color:#9ec4e8;
 }
 
 .bottom{
@@ -264,60 +238,58 @@ bottom:0;
 left:50%;
 transform:translateX(-50%);
 width:100%;
-max-width:760px;
+max-width:430px;
 background:white;
-border-top:1px solid #eef2f6;
-padding:14px;
+padding:12px;
 display:flex;
+align-items:center;
 gap:10px;
-z-index:120;
+border-top:1px solid #ececec;
+z-index:150;
 }
 
 .fake-input{
 flex:1;
-height:52px;
+height:48px;
 border-radius:999px;
-background:#f4f6f8;
+background:#f1f3f5;
 display:flex;
 align-items:center;
 padding:0 18px;
 font-size:14px;
-color:#a0a6ae;
+color:#9aa1ab;
 cursor:pointer;
 }
 
-.plus{
-width:52px;
-height:52px;
+.send-btn{
+width:42px;
+height:42px;
 border:none;
-border-radius:50%;
-background:#9ec4e8;
-color:white;
-font-size:22px;
+background:none;
+font-size:28px;
+color:#7f8790;
 cursor:pointer;
 }
 
-.modal{
+.sheet{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.36);
+background:rgba(0,0,0,0.34);
 display:none;
-justify-content:center;
-align-items:flex-end;
-z-index:9999;
+justify-content:flex-end;
+flex-direction:column;
+z-index:999;
 }
 
-.modal-content{
-width:100%;
-max-width:760px;
+.sheet-content{
 background:white;
-border-radius:28px 28px 0 0;
-padding:24px 18px 40px;
+border-radius:26px 26px 0 0;
+padding:24px 18px 34px;
 max-height:88vh;
 overflow:auto;
 }
 
-.modal-title{
+.sheet-title{
 font-size:22px;
 font-weight:700;
 margin-bottom:18px;
@@ -325,11 +297,11 @@ margin-bottom:18px;
 
 .input{
 width:100%;
-height:52px;
+height:50px;
 border:none;
-background:#f4f6f8;
-border-radius:16px;
-padding:0 16px;
+background:#f1f3f5;
+border-radius:15px;
+padding:0 15px;
 margin-bottom:12px;
 font-size:14px;
 outline:none;
@@ -338,11 +310,11 @@ font-family:'Pretendard',sans-serif;
 
 .textarea{
 width:100%;
-height:130px;
+height:120px;
 border:none;
-background:#f4f6f8;
-border-radius:16px;
-padding:16px;
+background:#f1f3f5;
+border-radius:15px;
+padding:14px;
 margin-bottom:12px;
 font-size:14px;
 outline:none;
@@ -352,13 +324,29 @@ font-family:'Pretendard',sans-serif;
 
 .submit{
 width:100%;
-height:54px;
+height:52px;
 border:none;
-border-radius:18px;
+border-radius:16px;
 background:#9ec4e8;
 color:white;
-font-size:16px;
+font-size:15px;
 font-weight:700;
+cursor:pointer;
+}
+
+.menu-buttons{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu-buttons button{
+height:52px;
+border:none;
+border-radius:15px;
+background:#f1f3f5;
+font-size:15px;
+font-weight:600;
 cursor:pointer;
 }
 
@@ -377,12 +365,12 @@ display:block;
 }
 
 .favorite-card{
-background:#f4f6f8;
+background:#f1f3f5;
 padding:14px;
-border-radius:18px;
+border-radius:16px;
 margin-bottom:10px;
 font-size:14px;
-line-height:1.55;
+line-height:1.5;
 }
 
 .favorite-card img{
@@ -394,21 +382,16 @@ display:block;
 
 @media (max-width:768px){
 
+.app{
+max-width:100%;
+}
+
+.bottom{
+max-width:100%;
+}
+
 .chat{
-min-height:440vh;
-padding-bottom:250px;
-}
-
-.bubble-area{
-max-width:84%;
-}
-
-.room-title{
-font-size:16px;
-}
-
-.bubble{
-font-size:14px;
+min-height:760vh;
 }
 
 }
@@ -427,48 +410,36 @@ font-size:14px;
 
 <div class="header-top">
 
-<button class="icon-btn" onclick="toggleSearch()">⌕</button>
+<button class="header-btn" onclick="toggleSearch()">
+⌕
+</button>
 
 <div class="header-center">
 
 <div class="room-title" id="roomTitle">
-Bubble
+HAN YUJIN
 </div>
 
 <div class="room-status">
-D-<span id="dday">0</span>
+bubble 💗 + <span id="dday">1</span>
 </div>
 
 </div>
 
-<button class="icon-btn" onclick="toggleMenu()">⋮</button>
+<button class="header-btn" onclick="openMenu()">
+⋮
+</button>
 
 </div>
 
-<div class="search-wrap" id="searchWrap">
+<div class="search-area" id="searchArea">
 
 <input
 class="search-input"
 id="searchInput"
-placeholder="메시지 검색"
+placeholder="버블 검색"
 oninput="runSearch()"
 >
-
-</div>
-
-<div class="menu" id="menu">
-
-<button onclick="openProfileModal()">
-프로필 설정
-</button>
-
-<button onclick="openGallery()">
-사진 모아보기
-</button>
-
-<button onclick="openFavorites()">
-즐겨찾기
-</button>
 
 </div>
 
@@ -478,13 +449,43 @@ oninput="runSearch()"
 
 <div class="bottom">
 
-<div class="fake-input" onclick="openMessageModal()">
+<div class="fake-input" onclick="openMessageSheet()">
 메시지 추가하기
 </div>
 
-<button class="plus" onclick="openMessageModal()">
-+
+<button class="send-btn">
+➤
 </button>
+
+</div>
+
+</div>
+
+<!-- 메뉴 -->
+
+<div class="sheet" id="menuSheet">
+
+<div class="sheet-content">
+
+<div class="sheet-title">
+메뉴
+</div>
+
+<div class="menu-buttons">
+
+<button onclick="openProfileSheet()">
+프로필 설정
+</button>
+
+<button onclick="openGallerySheet()">
+사진 모아보기
+</button>
+
+<button onclick="openFavoriteSheet()">
+즐겨찾기
+</button>
+
+</div>
 
 </div>
 
@@ -492,11 +493,11 @@ oninput="runSearch()"
 
 <!-- 프로필 -->
 
-<div class="modal" id="profileModal">
+<div class="sheet" id="profileSheet">
 
-<div class="modal-content">
+<div class="sheet-content">
 
-<div class="modal-title">
+<div class="sheet-title">
 프로필 설정
 </div>
 
@@ -520,33 +521,33 @@ oninput="runSearch()"
 
 <!-- 메시지 -->
 
-<div class="modal" id="messageModal">
+<div class="sheet" id="messageSheet">
 
-<div class="modal-content">
+<div class="sheet-content">
 
-<div class="modal-title">
+<div class="sheet-title">
 메시지 추가
 </div>
 
 <textarea
 class="textarea"
-id="messageInput"
+id="messageText"
 placeholder="버블 메시지"
 ></textarea>
 
 <input
 class="input"
-id="messageImageInput"
+id="messageImage"
 placeholder="이미지 링크"
 >
 
 <input
 class="input"
-id="messageTimeInput"
-placeholder="시간 예시 22:14"
+id="messageTime"
+placeholder="예시 : 오후 3:20"
 >
 
-<label style="display:flex;gap:8px;font-size:14px;margin-bottom:16px;">
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:18px;">
 
 <input type="checkbox" id="artistCheck" checked>
 
@@ -555,7 +556,7 @@ placeholder="시간 예시 22:14"
 </label>
 
 <button class="submit" onclick="addMessage()">
-추가하기
+메시지 추가하기
 </button>
 
 </div>
@@ -564,11 +565,11 @@ placeholder="시간 예시 22:14"
 
 <!-- 갤러리 -->
 
-<div class="modal" id="galleryModal">
+<div class="sheet" id="gallerySheet">
 
-<div class="modal-content">
+<div class="sheet-content">
 
-<div class="modal-title">
+<div class="sheet-title">
 사진 모아보기
 </div>
 
@@ -580,11 +581,11 @@ placeholder="시간 예시 22:14"
 
 <!-- 즐겨찾기 -->
 
-<div class="modal" id="favoriteModal">
+<div class="sheet" id="favoriteSheet">
 
-<div class="modal-content">
+<div class="sheet-content">
 
-<div class="modal-title">
+<div class="sheet-title">
 즐겨찾기
 </div>
 
@@ -598,7 +599,7 @@ placeholder="시간 예시 22:14"
 
 const firebaseConfig = {
 
-apiKey: "YOUR_API_KEY",
+apiKey: "AIzaSyDmrRitOd3F2xoZasaWq6mFbAblrKZFzPg",
 authDomain: "bubble-archive.firebaseapp.com",
 projectId: "bubble-archive",
 storageBucket: "bubble-archive.firebasestorage.app",
@@ -617,29 +618,29 @@ new URLSearchParams(location.search);
 const archiveId =
 params.get('archive') || 'default';
 
-let profileData = {};
-let messagesData = [];
+let profile = {};
+let messages = [];
 
 const chat =
 document.getElementById('chat');
 
-db.collection('bubbleProfiles')
+db.collection('profiles')
 .doc(archiveId)
 .onSnapshot(doc=>{
 
-profileData = doc.data() || {};
+profile = doc.data() || {};
 
 applyProfile();
 
 });
 
-db.collection('bubbleArchives')
+db.collection('archives')
 .doc(archiveId)
 .collection('messages')
 .orderBy('createdAt','asc')
 .onSnapshot(snapshot=>{
 
-messagesData =
+messages =
 snapshot.docs.map(doc=>({
 
 id:doc.id,
@@ -647,20 +648,20 @@ id:doc.id,
 
 }));
 
-renderMessages(messagesData);
+renderMessages(messages);
 
 });
 
 function applyProfile(){
 
 document.getElementById('roomTitle').innerText =
-profileData.roomTitle || 'Bubble';
+profile.roomTitle || 'HAN YUJIN';
 
 document.getElementById('dday').innerText =
-profileData.dday || '0';
+profile.dday || '1';
 
 document.getElementById('background').style.backgroundImage =
-`url('${profileData.background || ''}')`;
+`url('${profile.background || ''}')`;
 
 }
 
@@ -673,17 +674,14 @@ list.forEach(msg=>{
 const row =
 document.createElement('div');
 
-row.className =
-`message-row ${msg.artist ? 'artist-row' : 'me-row'}`;
+row.className='message-row';
 
-row.innerHTML = `
-
-${msg.artist ? `
+row.innerHTML=`
 
 <div class="profile">
 
 <img
-src="${(profileData.profileImage || '').trim() || 'https://i.imgur.com/8Km9tLL.jpg'}"
+src="${(profile.profileImage || '').trim() || 'https://i.imgur.com/8Km9tLL.jpg'}"
 referrerpolicy="no-referrer"
 crossorigin="anonymous"
 onerror="this.src='https://i.imgur.com/8Km9tLL.jpg'"
@@ -691,25 +689,23 @@ onerror="this.src='https://i.imgur.com/8Km9tLL.jpg'"
 
 </div>
 
-` : ''}
+<div class="bubble-wrap">
 
-<div class="bubble-area">
+<div class="artist-top">
 
-${msg.artist ? `
-
-<div class="artist-small">
+<div class="artist-badge">
 ARTIST
 </div>
 
 <div class="artist-name">
-${profileData.artistName || 'ARTIST'}
+${profile.artistName || 'HAN YUJIN'}
 </div>
 
-` : ''}
+</div>
 
 <div class="bubble-line">
 
-<div class="bubble ${msg.artist ? 'artist-bubble' : 'me-bubble'}">
+<div class="bubble artist-bubble">
 
 ${msg.text ? `
 <div>${msg.text}</div>
@@ -735,7 +731,7 @@ ${msg.time || ''}
 </div>
 
 <button
-class="favorite ${msg.favorite ? 'active' : ''}"
+class="favorite-btn ${msg.favorite ? 'active' : ''}"
 onclick="toggleFavorite('${msg.id}',${msg.favorite})"
 >
 ★
@@ -756,7 +752,7 @@ chat.appendChild(row);
 async function saveProfile(){
 
 await db
-.collection('bubbleProfiles')
+.collection('profiles')
 .doc(archiveId)
 .set({
 
@@ -777,23 +773,20 @@ document.getElementById('backgroundInput').value.trim()
 
 });
 
-closeModal('profileModal');
+closeSheets();
 
 }
 
 async function addMessage(){
 
 const text =
-document.getElementById('messageInput').value.trim();
+document.getElementById('messageText').value.trim();
 
 const image =
-document.getElementById('messageImageInput').value.trim();
+document.getElementById('messageImage').value.trim();
 
 const time =
-document.getElementById('messageTimeInput').value.trim();
-
-const artist =
-document.getElementById('artistCheck').checked;
+document.getElementById('messageTime').value.trim();
 
 if(!text && !image){
 
@@ -803,7 +796,7 @@ return;
 }
 
 await db
-.collection('bubbleArchives')
+.collection('archives')
 .doc(archiveId)
 .collection('messages')
 .add({
@@ -811,24 +804,23 @@ await db
 text,
 image,
 time,
-artist,
 favorite:false,
 createdAt:Date.now()
 
 });
 
-document.getElementById('messageInput').value='';
-document.getElementById('messageImageInput').value='';
-document.getElementById('messageTimeInput').value='';
+document.getElementById('messageText').value='';
+document.getElementById('messageImage').value='';
+document.getElementById('messageTime').value='';
 
-closeModal('messageModal');
+closeSheets();
 
 }
 
 async function toggleFavorite(id,current){
 
 await db
-.collection('bubbleArchives')
+.collection('archives')
 .doc(archiveId)
 .collection('messages')
 .doc(id)
@@ -840,16 +832,49 @@ favorite:!current
 
 }
 
-function openGallery(){
+function runSearch(){
 
-document.getElementById('galleryModal').style.display='flex';
+const value =
+document.getElementById('searchInput')
+.value
+.toLowerCase()
+.trim();
+
+if(value===''){
+
+renderMessages(messages);
+return;
+
+}
+
+const filtered =
+messages.filter(msg=>{
+
+return `
+${msg.text}
+${msg.time}
+`
+.toLowerCase()
+.includes(value);
+
+});
+
+renderMessages(filtered);
+
+}
+
+function openGallerySheet(){
+
+closeSheets();
+
+document.getElementById('gallerySheet').style.display='flex';
 
 const gallery =
 document.getElementById('gallery');
 
 gallery.innerHTML='';
 
-messagesData
+messages
 .filter(msg=>msg.image)
 .forEach(msg=>{
 
@@ -865,13 +890,13 @@ gallery.innerHTML += `
 
 });
 
-toggleMenu();
-
 }
 
-function openFavorites(){
+function openFavoriteSheet(){
 
-document.getElementById('favoriteModal').style.display='flex';
+closeSheets();
+
+document.getElementById('favoriteSheet').style.display='flex';
 
 const list =
 document.getElementById('favoriteList');
@@ -879,12 +904,12 @@ document.getElementById('favoriteList');
 list.innerHTML='';
 
 const favorites =
-messagesData.filter(msg=>msg.favorite);
+messages.filter(msg=>msg.favorite);
 
-if(favorites.length === 0){
+if(favorites.length===0){
 
-list.innerHTML = `
-<div style="color:#9ca3af;font-size:14px;">
+list.innerHTML=`
+<div style="font-size:14px;color:#9aa1ab;">
 즐겨찾기한 메시지가 없어!
 </div>
 `;
@@ -913,93 +938,61 @@ ${msg.image ? `
 
 });
 
-toggleMenu();
-
 }
 
 function toggleSearch(){
 
-const wrap =
-document.getElementById('searchWrap');
+const area =
+document.getElementById('searchArea');
 
-wrap.style.display =
-wrap.style.display === 'block'
+area.style.display =
+area.style.display==='block'
 ? 'none'
 : 'block';
 
 }
 
-function runSearch(){
+function openMenu(){
 
-const value =
-document
-.getElementById('searchInput')
-.value
-.toLowerCase()
-.trim();
+closeSheets();
 
-if(value === ''){
-
-renderMessages(messagesData);
-return;
+document.getElementById('menuSheet').style.display='flex';
 
 }
 
-const filtered =
-messagesData.filter(msg=>{
+function openProfileSheet(){
 
-return `
-${msg.text}
-${msg.time}
-`
-.toLowerCase()
-.includes(value);
+closeSheets();
+
+document.getElementById('profileSheet').style.display='flex';
+
+}
+
+function openMessageSheet(){
+
+closeSheets();
+
+document.getElementById('messageSheet').style.display='flex';
+
+}
+
+function closeSheets(){
+
+document.querySelectorAll('.sheet').forEach(sheet=>{
+
+sheet.style.display='none';
 
 });
 
-renderMessages(filtered);
-
 }
 
-function toggleMenu(){
+document.querySelectorAll('.sheet').forEach(sheet=>{
 
-const menu =
-document.getElementById('menu');
+sheet.addEventListener('click',e=>{
 
-menu.style.display =
-menu.style.display === 'flex'
-? 'none'
-: 'flex';
+if(e.target===sheet){
 
-}
-
-function openProfileModal(){
-
-document.getElementById('profileModal').style.display='flex';
-
-toggleMenu();
-
-}
-
-function openMessageModal(){
-
-document.getElementById('messageModal').style.display='flex';
-
-}
-
-function closeModal(id){
-
-document.getElementById(id).style.display='none';
-
-}
-
-document.querySelectorAll('.modal').forEach(modal=>{
-
-modal.addEventListener('click',e=>{
-
-if(e.target === modal){
-
-modal.style.display='none';
+sheet.style.display='none';
 
 }
 
