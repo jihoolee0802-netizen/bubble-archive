@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 
@@ -24,11 +24,11 @@ box-sizing:border-box;
 
 body{
 font-family:'Pretendard',sans-serif;
-background:#dcecf7;
+background:#dbeaf4;
 display:flex;
 justify-content:center;
-min-height:100vh;
 overflow-x:hidden;
+min-height:100vh;
 }
 
 .background{
@@ -43,15 +43,15 @@ z-index:-2;
 content:'';
 position:absolute;
 inset:0;
-background:rgba(255,255,255,0.35);
-backdrop-filter:blur(8px);
+background:rgba(255,255,255,0.42);
+backdrop-filter:blur(10px);
 }
 
 .app{
 width:100%;
-max-width:720px;
-min-height:220vh;
+max-width:760px;
 background:white;
+min-height:240vh;
 position:relative;
 overflow:hidden;
 display:flex;
@@ -61,9 +61,9 @@ flex-direction:column;
 .header{
 position:sticky;
 top:0;
-z-index:50;
+z-index:100;
 background:white;
-padding:14px 18px 12px;
+padding:12px 18px 10px;
 border-bottom:1px solid #eef2f6;
 }
 
@@ -78,7 +78,7 @@ width:34px;
 height:34px;
 border:none;
 background:none;
-font-size:20px;
+font-size:21px;
 cursor:pointer;
 color:#111;
 }
@@ -89,15 +89,16 @@ text-align:center;
 }
 
 .room-title{
-font-size:18px;
+font-size:17px;
 font-weight:700;
 color:#111;
+line-height:1.2;
 }
 
 .room-status{
-font-size:12px;
-color:#111;
 margin-top:4px;
+font-size:11px;
+color:#111;
 }
 
 .search-wrap{
@@ -109,7 +110,7 @@ margin-top:12px;
 width:100%;
 height:44px;
 border:none;
-background:#f3f5f7;
+background:#f4f6f8;
 border-radius:14px;
 padding:0 14px;
 font-size:14px;
@@ -118,35 +119,35 @@ outline:none;
 
 .menu{
 position:absolute;
-top:62px;
+top:58px;
 right:16px;
 background:white;
 border-radius:18px;
 padding:10px;
-box-shadow:0 12px 30px rgba(0,0,0,0.12);
 display:none;
 flex-direction:column;
 gap:8px;
+box-shadow:0 12px 30px rgba(0,0,0,0.12);
 z-index:999;
 }
 
 .menu button{
 height:42px;
 border:none;
-background:#f3f5f7;
-padding:0 16px;
+background:#f4f6f8;
 border-radius:12px;
+padding:0 16px;
 font-size:14px;
 font-weight:600;
 cursor:pointer;
 }
 
 .chat{
-padding:22px 14px 220px;
+padding:22px 14px 240px;
 display:flex;
 flex-direction:column;
 gap:18px;
-min-height:180vh;
+min-height:220vh;
 }
 
 .message-row{
@@ -164,12 +165,13 @@ justify-content:flex-end;
 }
 
 .profile{
-width:40px;
-height:40px;
+width:38px;
+height:38px;
 border-radius:50%;
 overflow:hidden;
 flex-shrink:0;
 background:#eee;
+margin-bottom:2px;
 }
 
 .profile img{
@@ -180,32 +182,32 @@ display:block;
 }
 
 .bubble-area{
+max-width:78%;
 display:flex;
 flex-direction:column;
-max-width:76%;
 }
 
 .artist-small{
 font-size:10px;
 font-weight:700;
-color:#9ca3af;
+letter-spacing:0.05em;
+color:#a3a8af;
 margin-left:6px;
-letter-spacing:0.04em;
 }
 
 .artist-name{
 font-size:14px;
 font-weight:700;
+color:#111;
 margin-left:6px;
 margin-top:2px;
-margin-bottom:5px;
-color:#111;
+margin-bottom:6px;
 }
 
 .bubble-line{
 display:flex;
 align-items:flex-end;
-gap:6px;
+gap:5px;
 }
 
 .bubble{
@@ -217,15 +219,36 @@ position:relative;
 }
 
 .artist-bubble{
-background:#f4f6f8;
-border-radius:8px 20px 20px 20px;
+background:#f3f5f7;
 color:#111;
+border-radius:8px 20px 20px 20px;
 }
 
 .me-bubble{
 background:#9ec4e8;
-border-radius:20px 8px 20px 20px;
 color:white;
+border-radius:20px 8px 20px 20px;
+}
+
+.time{
+font-size:10px;
+color:#8d949d;
+margin-bottom:4px;
+white-space:nowrap;
+}
+
+.favorite{
+border:none;
+background:none;
+font-size:17px;
+cursor:pointer;
+color:#d8e7f3;
+padding-bottom:1px;
+flex-shrink:0;
+}
+
+.favorite.active{
+color:#9ec4e8;
 }
 
 .bubble-image{
@@ -235,52 +258,31 @@ border-radius:14px;
 margin-top:4px;
 }
 
-.time{
-font-size:11px;
-color:#6b7280;
-margin-bottom:4px;
-white-space:nowrap;
-}
-
-.favorite{
-border:none;
-background:none;
-font-size:18px;
-cursor:pointer;
-color:#d4e4f2;
-padding-bottom:2px;
-flex-shrink:0;
-}
-
-.favorite.active{
-color:#9ec4e8;
-}
-
 .bottom{
 position:fixed;
 bottom:0;
 left:50%;
 transform:translateX(-50%);
 width:100%;
-max-width:720px;
+max-width:760px;
 background:white;
 border-top:1px solid #eef2f6;
 padding:14px;
 display:flex;
 gap:10px;
-z-index:100;
+z-index:120;
 }
 
 .fake-input{
 flex:1;
 height:52px;
 border-radius:999px;
-background:#f3f5f7;
+background:#f4f6f8;
 display:flex;
 align-items:center;
 padding:0 18px;
 font-size:14px;
-color:#9ca3af;
+color:#a0a6ae;
 cursor:pointer;
 }
 
@@ -298,7 +300,7 @@ cursor:pointer;
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.35);
+background:rgba(0,0,0,0.36);
 display:none;
 justify-content:center;
 align-items:flex-end;
@@ -307,7 +309,7 @@ z-index:9999;
 
 .modal-content{
 width:100%;
-max-width:720px;
+max-width:760px;
 background:white;
 border-radius:28px 28px 0 0;
 padding:24px 18px 40px;
@@ -325,7 +327,7 @@ margin-bottom:18px;
 width:100%;
 height:52px;
 border:none;
-background:#f3f5f7;
+background:#f4f6f8;
 border-radius:16px;
 padding:0 16px;
 margin-bottom:12px;
@@ -338,7 +340,7 @@ font-family:'Pretendard',sans-serif;
 width:100%;
 height:130px;
 border:none;
-background:#f3f5f7;
+background:#f4f6f8;
 border-radius:16px;
 padding:16px;
 margin-bottom:12px;
@@ -374,15 +376,39 @@ border-radius:16px;
 display:block;
 }
 
+.favorite-card{
+background:#f4f6f8;
+padding:14px;
+border-radius:18px;
+margin-bottom:10px;
+font-size:14px;
+line-height:1.55;
+}
+
+.favorite-card img{
+width:100%;
+border-radius:14px;
+margin-top:8px;
+display:block;
+}
+
 @media (max-width:768px){
 
 .chat{
-min-height:220vh;
-padding-bottom:240px;
+min-height:260vh;
+padding-bottom:250px;
 }
 
 .bubble-area{
-max-width:82%;
+max-width:84%;
+}
+
+.room-title{
+font-size:16px;
+}
+
+.bubble{
+font-size:14px;
 }
 
 }
@@ -572,7 +598,7 @@ placeholder="시간 예시 22:14"
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyDmrRitOd3F2xoZasaWq6mFbAblrKZFzPg",
+apiKey: "YOUR_API_KEY",
 authDomain: "bubble-archive.firebaseapp.com",
 projectId: "bubble-archive",
 storageBucket: "bubble-archive.firebasestorage.app",
@@ -871,27 +897,13 @@ favorites.forEach(msg=>{
 
 list.innerHTML += `
 
-<div style="
-background:#f4f6f8;
-border-radius:18px;
-padding:14px;
-margin-bottom:10px;
-font-size:14px;
-line-height:1.5;
-">
+<div class="favorite-card">
 
 ${msg.text || ''}
 
 ${msg.image ? `
 
-<img
-src="${msg.image}"
-style="
-width:100%;
-border-radius:14px;
-margin-top:8px;
-"
->
+<img src="${msg.image}">
 
 ` : ''}
 
